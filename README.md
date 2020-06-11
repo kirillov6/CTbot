@@ -1,0 +1,2 @@
+# CTbot
+ ComponentsTeam Discord Bot
