@@ -29,4 +29,31 @@ module.exports = {
 	            commands.set(command.name, command); // Добавление команды в коллекцию
         });
     },
+
+    // Определить аргументы для команды Poll
+    GetPollArgs: function(message) {
+
+        let args = message.content.match(/"(\\.|[^"\\])*"/g); // Регулярное выражние - берем все подстроки в кавычках
+
+        // Удаление кавычек из аргументов
+        args.forEach(function(part, index) {
+            args[index] = args[index].replace(/"/g, '');
+        });
+
+        return args;
+    },
+
+    // Проверить варианты ответов голосования
+    CheckPollEmptyAnswers: function(answers) {
+
+        let notEmptyCount = 0;
+
+        // Удаление пустых ответов
+        answers.forEach(function(part, index, object) {
+            if (part.length)
+                notEmptyCount++;
+        });
+
+        return notEmptyCount;
+    },
 }

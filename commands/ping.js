@@ -5,6 +5,7 @@ module.exports = {
     description: 'Отправить в ответ "Pong"',
 
     execute(message, args) {
+        
         message.reply('Pong');
     }
 };
