@@ -1,8 +1,6 @@
-// Запуск dotenv
-require('dotenv').config();
-
-// Импорт библиотек
+// Импорт библиотек и конфига
 const Discord = require('discord.js');
+const Config = require('./config.json');
 
 // Создание экземпляра клиента
 const Client = new Discord.Client();
@@ -16,11 +14,11 @@ Client.on('ready', () => {
 
 // Обработчик события - отправка сообщений
 Client.on('message', message => {
-	if (message.content === '!ping') {
+	if (message.content === `${Config.prefix}ping`) {
         message.channel.send('Pong');
     }
 });
 
 
 // Подключение к серверу
-Client.login(process.env.DISCORD_TOKEN);
+Client.login(Config.token);
