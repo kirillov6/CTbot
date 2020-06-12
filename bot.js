@@ -1,24 +1,23 @@
-// Импорт библиотек и конфига
-const Discord = require('discord.js');
-const Config = require('./config.json');
+// Импорт библиотек
+const Discord = require('discord.js'); // Discord API
+const FS = require('fs');              // File System
 
-// Создание экземпляра клиента
+// Импорт конфига
+const { token } = require('./config/config.json');
+
+// Создание объекта-клиента
 const Client = new Discord.Client();
 
 
-// Обработчик события - подключение клиента на сервер
-Client.on('ready', () => {
-    console.log(`Logged in as ${Client.user.tag}!`);
-});
-
-
-// Обработчик события - отправка сообщений
-Client.on('message', message => {
-	if (message.content === `${Config.prefix}ping`) {
-        message.channel.send('Pong');
-    }
+// Подключение всех обработчиков событий
+FS.readdir('./events/', (err, files) => {
+    files.forEach(file => {
+        const eventHandler = require(`./events/${file}`); // Файл обработчика
+        const eventName = file.split('.')[0]; // Имя обработчика
+        Client.on(eventName, (...args) => eventHandler(Client, ...args)); // Подключение обработки события
+    });
 });
 
 
 // Подключение к серверу
-Client.login(Config.token);
+Client.login(token);
