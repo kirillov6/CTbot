@@ -1,8 +1,9 @@
-const FS = require('fs'); // File System
+// Вспомогательные телодвижения
 
-// Расположения файлов
-const EventsPath = `${process.cwd()}/events`;
-const CommandsPath = `${process.cwd()}/commands`;
+// Импорт
+const FS = require('fs'); // File System
+const path = require('./path'); // Пути
+
 
 // Эмоджи:)
 var emojis = [
@@ -14,10 +15,10 @@ module.exports = {
     // Подключение всех обработчиков событий
     LoadEvents: function(Client) {
         
-        const eventFiles = FS.readdirSync(EventsPath).filter(file => file.endsWith('.js'));
+        const eventFiles = FS.readdirSync(path.EVENTS).filter(file => file.endsWith('.js'));
 
         eventFiles.forEach(file => {
-            const eventHandler = require(`${EventsPath}/${file}`); // Файл обработчика
+            const eventHandler = require(`${path.EVENTS}/${file}`); // Файл обработчика
             const eventName = file.split('.')[0]; // Имя обработчика
             Client.on(eventName, (...args) => eventHandler(Client, ...args)); // Подключение обработки события
         });
@@ -26,10 +27,10 @@ module.exports = {
     // Заполнение коллекции команд
     FillCommands: function(commands) {
 
-        const commandFiles = FS.readdirSync(CommandsPath).filter(file => file.endsWith('.js'));
+        const commandFiles = FS.readdirSync(path.COMMANDS).filter(file => file.endsWith('.js'));
 
         commandFiles.forEach(file => {
-            const command = require(`${CommandsPath}/${file}`); // Файл команды
+            const command = require(`${path.COMMANDS}/${file}`); // Файл команды
 	            commands.set(command.name, command); // Добавление команды в коллекцию
         });
     },

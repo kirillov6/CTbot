@@ -1,8 +1,10 @@
 // Команда !poll отвечает за проведение голосований
 
 // Импорт
-const str   = require('../utils/str');
-const utils = require('../utils/utils');
+const str     = require('../utils/str');
+const utils   = require('../utils/utils');
+const path    = require('../utils/path');
+const Discord = require('discord.js');
 
 
 module.exports = {
@@ -39,8 +41,22 @@ module.exports = {
                 // Получим необходимое количество рандомных эмоджи
                 let randomEmojis = utils.GetRandomEmojis(answers.length);
 
+                // Получим варианты ответа
+                let strAnswers = '';
+                answers.forEach(async function(part, index) {
+                    strAnswers += `${randomEmojis[index]} ${part}\n`
+                });
+
+                // Создадим блок с информацией
+                const pollEmbed = new Discord.MessageEmbed()
+                    .setColor('#92D7A5')
+                    .setDescription(strAnswers)
+                    .setTimestamp();
+
                 // Добавим текст голосования
-                message.channel.send(str.POLL_EMOJI + '  **' + args[0] + '**')
+                message.channel.send(`${str.POLL_EMOJI}  **${args[0]}**`, {
+                    embed : pollEmbed
+                })
                 // Добавим реакты
                 .then(messageReaction => {
                     answers.forEach(async function(part, index) {
