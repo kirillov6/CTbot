@@ -6,7 +6,8 @@ const str        = require('../utils/str');
 const utils      = require('../utils/utils');
 
 
-module.exports = (Client, message) => {
+module.exports = async (Client, message) => {
+    
     // Проверка сообщения на валидность
     if (!message.content.startsWith(prefix) || message.author.bot) 
         return;
@@ -14,26 +15,45 @@ module.exports = (Client, message) => {
     // Получение всех аргументов сообщения (включая саму команду)
     var args = message.content.slice(prefix.length).split(/ +/);
 
-    // Получение команды в нижнем регистре (при этом она удаляется из списка всех аргументов)
-    const command = args.shift().toLowerCase();
+    // Получение наименования команды в нижнем регистре (при этом она удаляется из списка всех аргументов)
+    const commandName = args.shift().toLowerCase();
 
     // Проверка, поддерживается ли такая команда
-    if (!Client.commands.has(command)) {
-        message.reply(str.COMMAND_NOT_SUPPORT);
-        return;
-    }
+    if (!Client.commands.has(commandName))
+        return utils.MsgReplyAndDelete(message, str.COMMAND_NOT_SUPPORT, 6);
 
     // Для команды POLL переопределим аргументы, т.к. там аргументы в кавычках
-    if (command === 'poll' && args.length) {
-        args = utils.GetPollArgs(message);
-    };
+    if (commandName === 'poll' && args.length) {
+        pollArgs = utils.GetPollArgs(message);
+        if (pollArgs)
+            args = pollArgs;
+        else
+            return utils.MsgReplyAndDelete(message, str.COMMAND_BADFORMAT_ARGS, 6);
+    }
+
+    // Получение команды
+    const command = Client.commands.get(commandName);
+
+    // Проверка аргументов
+    if (command.args) {
+        if (!args.length || args.length > command.max_args) {
+            let reply = "";
+            if (!args.length)
+                reply = str.COMMAND_EMPTY_ARGS;
+            if (args.length > command.max_args)
+                reply = str.COMMAND_OVERFLOW_ARGS;
+            
+            return utils.MsgReplyAndDelete(message, reply, 6);
+        }
+    }
     
     // Выполнение команды
     try {
-        Client.commands.get(command).execute(message, args);
+        await command.execute(message, args); // Выполним
+        utils.MsgDelete(message, 10); // Удалим
     } 
     catch (error) {
         console.error(error);
-        message.reply(COMMAND_ERROR);
+        message.reply(str.COMMAND_ERROR);
     }
 };
