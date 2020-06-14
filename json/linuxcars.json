@@ -1,0 +1,51 @@
+{
+    "Car1": {
+        "ID": "1",
+        "Type": "Astra",
+        "Ip": "10.9.0.183",
+        "Login": "prognoz",
+        "Password": "Qwerty123456",
+        "Free": true,
+        "CurrentUser": ""
+    },
+
+    "Car2": {
+        "ID": "2",
+        "Type": "Astra",
+        "Ip": "10.9.0.152",
+        "Login": "prognoz",
+        "Password": "Qwerty123456",
+        "Free": true,
+        "CurrentUser": ""
+    },
+
+    "Car3": {
+        "ID": "3",
+        "Type": "Astra",
+        "Ip": "10.9.0.213",
+        "Login": "prognoz",
+        "Password": "Qwerty123456",
+        "Free": false,
+        "CurrentUser": "фвщопрыдп"
+    },
+
+    "Car4": {
+        "ID": "4",
+        "Type": "Ubuntu",
+        "Ip": "10.0.72.55",
+        "Login": "prognoz",
+        "Password": "123456",
+        "Free": true,
+        "CurrentUser": ""
+    },
+
+    "Car5": {
+        "ID": "5",
+        "Type": "Astra",
+        "Ip": "10.9.0.252",
+        "Login": "prognoz",
+        "Password": "Qwerty123456",
+        "Free": true,
+        "CurrentUser": ""
+    }
+}

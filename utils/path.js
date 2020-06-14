@@ -3,7 +3,9 @@
 const curDirPath = process.cwd();
 
 module.exports = {
-    EVENTS                                             : `${curDirPath}/events`,
+    EVENTS                                              : `${curDirPath}/events`,
 
-    COMMANDS                                           : `${curDirPath}/commands`,
+    COMMANDS                                            : `${curDirPath}/commands`,
+
+    LINUXCARS                                           : `${curDirPath}/json/linuxcars.json`,
 }

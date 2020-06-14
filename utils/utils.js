@@ -86,5 +86,23 @@ module.exports = {
         };
         
         return result;
+    },
+
+    // Найти виртуалку по айдишнику
+    GetLinuxCar: function(id) {
+        // Получим данные из файла
+        let LinuxCars = JSON.parse(FS.readFileSync(path.LINUXCARS));
+
+        // Найдем виртуалку
+        for (var key in LinuxCars) {
+            if (LinuxCars.hasOwnProperty(key)) {
+                let car = LinuxCars[key];
+                if (car.ID == id) {
+                    return car;
+                };
+            };
+        };
+
+        return null;
     }
 }

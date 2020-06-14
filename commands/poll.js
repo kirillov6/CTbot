@@ -3,7 +3,6 @@
 // Импорт
 const str     = require('../utils/str');
 const utils   = require('../utils/utils');
-const path    = require('../utils/path');
 const Discord = require('discord.js');
 
 
@@ -43,7 +42,7 @@ module.exports = {
 
                 // Получим варианты ответа
                 let strAnswers = '';
-                answers.forEach(async function(part, index) {
+                answers.forEach(function(part, index) {
                     strAnswers += `${randomEmojis[index]} ${part}\n`
                 });
 

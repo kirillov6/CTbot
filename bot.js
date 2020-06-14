@@ -3,7 +3,7 @@ const Discord = require('discord.js');    // Discord API
 const utils   = require('./utils/utils'); // Вспомогательные функции
 
 // Импорт конфига
-const { token } = require('./config/config.json');
+const { token } = require('./json/config.json');
 
 
 // Создание объекта-клиента

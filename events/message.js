@@ -1,7 +1,7 @@
 //Обработчик события - получение сообщения
 
 // Импорт
-const { prefix } = require('../config/config.json');
+const { prefix } = require('../json/config.json');
 const str        = require('../utils/str');
 const utils      = require('../utils/utils');
 
@@ -54,6 +54,6 @@ module.exports = async (Client, message) => {
     } 
     catch (error) {
         console.error(error);
-        message.reply(str.COMMAND_ERROR);
+        utils.MsgReplyAndDelete(message, str.COMMAND_ERROR, 6);
     }
 };
