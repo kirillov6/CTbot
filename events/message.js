@@ -20,7 +20,7 @@ module.exports = async (Client, message) => {
 
     // Проверка, поддерживается ли такая команда
     if (!Client.commands.has(commandName))
-        return utils.MsgReplyAndDelete(message, str.COMMAND_NOT_SUPPORT, 6);
+        return utils.MsgReplyAndDelete(message, str.COMMAND_NOT_SUPPORT);
 
     // Для команды POLL переопределим аргументы, т.к. там аргументы в кавычках
     if (commandName === 'poll' && args.length) {
@@ -28,7 +28,7 @@ module.exports = async (Client, message) => {
         if (pollArgs)
             args = pollArgs;
         else
-            return utils.MsgReplyAndDelete(message, str.COMMAND_BADFORMAT_ARGS, 6);
+            return utils.MsgReplyAndDelete(message, str.COMMAND_BADFORMAT_ARGS);
     }
 
     // Получение команды
@@ -43,17 +43,17 @@ module.exports = async (Client, message) => {
             if (args.length > command.max_args)
                 reply = str.COMMAND_OVERFLOW_ARGS;
             
-            return utils.MsgReplyAndDelete(message, reply, 6);
+            return utils.MsgReplyAndDelete(message, reply);
         }
     }
     
     // Выполнение команды
     try {
         await command.execute(message, args); // Выполним
-        utils.MsgDelete(message, 10); // Удалим
+        utils.MsgDelete(message, 6); // Удалим
     } 
     catch (error) {
         console.error(error);
-        utils.MsgReplyAndDelete(message, str.COMMAND_ERROR, 6);
+        utils.MsgReplyAndDelete(message, str.COMMAND_ERROR);
     }
 };

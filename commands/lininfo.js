@@ -2,10 +2,8 @@
 
 // Импорт
 const str     = require('../utils/str');
-const path    = require('../utils/path');
 const utils   = require('../utils/utils');
 const Discord = require('discord.js');
-const FS      = require('fs');
 const { isNull } = require('util');
 
 
@@ -20,14 +18,14 @@ module.exports = {
         // Проверим аргумент на корректность
         carID = Number(args[0]);
         if (isNaN(carID))
-            return utils.MsgReplyAndDelete(message, str.COMMAND_BADFORMAT_ARGS, 6);
+            return utils.MsgReplyAndDelete(message, str.COMMAND_BADFORMAT_ARGS);
         
         // Найдем виртуалку
         let car = utils.GetLinuxCar(carID);
 
         // Проверим, есть ли такая виртуалка
         if (isNull(car))
-            return utils.MsgReplyAndDelete(message, str.LININFO_BAD_ID, 6);
+            return utils.MsgReplyAndDelete(message, str.LININFO_BAD_ID);
 
         // Создадим блок с информацией
         const carEmbed = new Discord.MessageEmbed()

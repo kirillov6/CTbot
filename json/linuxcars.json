@@ -8,7 +8,6 @@
         "Free": true,
         "CurrentUser": ""
     },
-
     "Car2": {
         "ID": "2",
         "Type": "Astra",
@@ -18,17 +17,15 @@
         "Free": true,
         "CurrentUser": ""
     },
-
     "Car3": {
         "ID": "3",
         "Type": "Astra",
         "Ip": "10.9.0.213",
         "Login": "prognoz",
         "Password": "Qwerty123456",
-        "Free": false,
-        "CurrentUser": "фвщопрыдп"
+        "Free": true,
+        "CurrentUser": ""
     },
-
     "Car4": {
         "ID": "4",
         "Type": "Ubuntu",
@@ -38,7 +35,6 @@
         "Free": true,
         "CurrentUser": ""
     },
-
     "Car5": {
         "ID": "5",
         "Type": "Astra",

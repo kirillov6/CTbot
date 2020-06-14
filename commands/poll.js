@@ -35,7 +35,7 @@ module.exports = {
 
                 // Если все варианты ответа были пустые, то сообщим
                 if (!answers.length)
-                    return utils.MsgReplyAndDelete(message, str.POLL_EMPTY_ANSWERS, 6);
+                    return utils.MsgReplyAndDelete(message, str.POLL_EMPTY_ANSWERS);
 
                 // Получим необходимое количество рандомных эмоджи
                 let randomEmojis = utils.GetRandomEmojis(answers.length);

@@ -1,8 +1,9 @@
 // Вспомогательные телодвижения
 
 // Импорт
-const FS = require('fs'); // File System
+const FS   = require('fs'); // File System
 const path = require('./path'); // Пути
+const str  = require('./str'); // Строки
 
 
 // Эмоджи:)
@@ -61,7 +62,8 @@ module.exports = {
     },
 
     // Ответить и удалить ответ вместе с сообщением
-    MsgReplyAndDelete: function(message, reply, time){
+    MsgReplyAndDelete: function(message, reply, time = 6){
+        
         message.reply(reply)
         .then(msg => {msg.delete({ timeout: time * 1000 }) }) // Удалим ответ
         .then(() => message.delete({ timeout: time * 1000 })) // Удалим команду
@@ -70,12 +72,14 @@ module.exports = {
 
     // Удалить сообщение
     MsgDelete: function(message, time){
+        
         message.delete({ timeout: time * 1000 }) // Удалим команду
         .catch(console.error);
     },
 
     // Получить рандомные эмоджи
     GetRandomEmojis: function(count) {
+        
         let result = [];
         let copyEmojis = emojis;
 
@@ -90,6 +94,14 @@ module.exports = {
 
     // Найти виртуалку по айдишнику
     GetLinuxCar: function(id) {
+        
+        // Проверим на корректный формат
+        carID = Number(id);
+        if (isNaN(carID)) {
+            utils.MsgReplyAndDelete(message, str.COMMAND_BADFORMAT_ARGS);
+            return null;
+        };
+
         // Получим данные из файла
         let LinuxCars = JSON.parse(FS.readFileSync(path.LINUXCARS));
 
@@ -97,12 +109,63 @@ module.exports = {
         for (var key in LinuxCars) {
             if (LinuxCars.hasOwnProperty(key)) {
                 let car = LinuxCars[key];
-                if (car.ID == id) {
+                if (car.ID == carID) {
                     return car;
                 };
             };
         };
 
         return null;
-    }
+    },
+
+    // Найти ключ виртуалки
+    GetLinuxCarKey: function(car) {
+        
+        // Получим данные из файла
+        let LinuxCars = JSON.parse(FS.readFileSync(path.LINUXCARS));
+        
+        // Найдем ключ
+        for (var key in LinuxCars) {
+            tmpCar = LinuxCars[key];
+            if (LinuxCars.hasOwnProperty(key) && JSON.stringify(car) === JSON.stringify(tmpCar)) {
+                return key;
+            };
+        };
+
+        return null;
+    },
+
+    // Занять виртуалку
+    TakeLinuxCar: function(car, user) {
+        
+        // Получим данные из файла
+        let LinuxCars = JSON.parse(FS.readFileSync(path.LINUXCARS));
+        
+        // Получим ключ
+        let carKey = this.GetLinuxCarKey(car);
+
+        // Изменим данные
+        LinuxCars[carKey].Free = false;
+        LinuxCars[carKey].CurrentUser = user;
+
+        // Сохраним измененные данные
+        FS.writeFileSync(path.LINUXCARS, JSON.stringify(LinuxCars, null, 4));
+    },
+
+    // Освободить виртуалку
+    FreeLinuxCar: function(car) {
+        
+        // Получим данные из файла
+        let LinuxCars = JSON.parse(FS.readFileSync(path.LINUXCARS));
+        
+        // Получим ключ
+        let carKey = this.GetLinuxCarKey(car);
+
+        // Изменим данные
+        LinuxCars[carKey].Free = true;
+        LinuxCars[carKey].CurrentUser = "";
+
+        // Сохраним измененные данные
+        FS.writeFileSync(path.LINUXCARS, JSON.stringify(LinuxCars, null, 4));
+    },
 }
