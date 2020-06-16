@@ -39,12 +39,16 @@ module.exports = async (Client, message) => {
         if (!args.length || args.length > command.max_args) {
             let reply = "";
             if (!args.length)
-                reply = str.COMMAND_EMPTY_ARGS;
+                reply = str.COMMAND_NOTENOUGH_ARGS;
             if (args.length > command.max_args)
                 reply = str.COMMAND_OVERFLOW_ARGS;
             
             return utils.MsgReplyAndDelete(message, reply);
         }
+    }
+    else {
+        if (args.length)
+            return utils.MsgReplyAndDelete(message, str.COMMAND_EMPTY_ARGS);
     }
     
     // Выполнение команды
