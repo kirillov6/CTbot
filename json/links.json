@@ -1,0 +1,116 @@
+{
+    "Portal": {
+        "Name": "Портал",
+        "Links": {
+            "1": {
+                "Description": "Корпоративный портал",
+                "Link": "https://portal.fsight.ru/Pages/default.aspx"
+            },
+            "2": {
+                "Description": "Учет рабочего времени",
+                "Link": "https://v-platform-ets/pp_app_v9.0/app/reporter.html#key=1129"
+            }
+        }
+    },
+    "Wiki": {
+        "Name": "Вики/Документация",
+        "Links": {
+            "1": {
+                "Description": "Документация по продуктам",
+                "Link": "https://help.fsight.ru/ru/"
+            },
+            "2": {
+                "Description": "Информация для разработчиков",
+                "Link": "https://portal.fsight.ru/p10001/Development/Wiki/Pages/Информация%20для%20разработчиков.aspx"
+            },
+            "3": {
+                "Description": "Azure Wiki",
+                "Link": "https://tfsprod.fsight.ru/Foresight/AP/_wiki/wikis"
+            }
+        }
+    },
+    "Development": {
+        "Name": "Разработка",
+        "Links": {
+            "1": {
+                "Description": "GIT репозиторий",
+                "Link": "https://tfsprod.fsight.ru/Foresight/_git/AP"
+            },
+            "2": {
+                "Description": "TFS репозиторий",
+                "Link": "https://tfsprod.fsight.ru/Prognoz/P7/_versionControl"
+            },
+            "3": {
+                "Description": "Готовые сборки",
+                "Link": "\\\\fs.fsight.world\\projects\\P10001_BuildSystem\\WebBuild"
+            },
+            "4": {
+                "Description": "Командная папка",
+                "Link": "\\\\fs.fsight.world\\Projects\\P10001_Dev\\Components"
+            }
+        }
+    },
+    "Autotools": {
+        "Name": "Автотесты",
+        "Links": {
+            "1": {
+                "Description": "Запуск SilverBullet автотестов",
+                "Link": "http://autotools.fsight.ru/App/JsTests/Repo"
+            },
+            "2": {
+                "Description": "Запуск Fore автотестов",
+                "Link": "http://autotools.fsight.ru/App/Tests/Index"
+            },
+            "3": {
+                "Description": "Code Coverage по SB тестам (sa/aeL8eim3oh)",
+                "Link": "http://v-at-cc.dev.fs.fsight.world/FP_App_v9.2/app/olap.html#key=95&mode=edit"
+            }
+        }
+    },
+    "Dashboards": {
+        "Name": "Доски",
+        "Links": {
+            "1": {
+                "Description": "Доска нашей команды",
+                "Link": "https://tfsprod.fsight.ru/Foresight/AP/_dashboards/dashboard/cdeeb119-3bc7-4774-87ab-5d26d7e724e0"
+            },
+            "2": {
+                "Description": "Прогон автотестов на релизах",
+                "Link": "https://tfsprod.fsight.ru/Foresight/AP/_dashboards/dashboard/04c0b3a1-2bd6-4cbf-a2ae-4d42485fbe44"
+            },
+            "3": {
+                "Description": "Красная зона всех команд",
+                "Link": "https://tfsprod.fsight.ru/Foresight/AP/_dashboards/dashboard/19f27573-d96e-4d5f-a2f7-c2923074355b"
+            },
+            "4": {
+                "Description": "Общая матрица приоритетов",
+                "Link": "https://tfsprod.fsight.ru/Foresight/AP/_dashboards/dashboard/526f876b-0a58-4358-8dad-59e55d9fcda2"
+            }
+        }
+    },
+    "Pipelines": {
+        "Name": "Пайплайны",
+        "Links": {
+            "1": {
+                "Description": "Release x64",
+                "Link": "https://tfsprod.fsight.ru/Foresight/AP/_build?definitionId=15"
+            },
+            "2": {
+                "Description": "Debug x64",
+                "Link": "https://tfsprod.fsight.ru/Foresight/AP/_build?definitionId=114"
+            },
+            "3": {
+                "Description": "Linux",
+                "Link": "https://tfsprod.fsight.ru/Foresight/AP/_build?definitionId=159"
+            },
+            "4": {
+                "Description": "Fore autotests",
+                "Link": "https://tfsprod.fsight.ru/Foresight/AP/_release?view=mine&definitionId=119"
+            },
+            "5": {
+                "Description": "SilverBullet autotests",
+                "Link": "https://tfsprod.fsight.ru/Foresight/AP/_release?view=mine&definitionId=109"
+            }
+        }
+    }
+}

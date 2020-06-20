@@ -10,5 +10,7 @@ module.exports = {
 
     LINUXCARS                                           : `${curDirPath}/json/linuxcars.json`,
 
+    LINKS                                               : `${curDirPath}/json/links.json`,
+
     RULES                                               : `${curDirPath}/txt/rules.txt`,
 }
