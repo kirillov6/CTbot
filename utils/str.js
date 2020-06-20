@@ -33,6 +33,3 @@ module.exports = {
 
     BAD_MEMBERNAME              : 'Не удалось получить имя'
 }
-
-
-

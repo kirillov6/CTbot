@@ -8,6 +8,8 @@ module.exports = {
 
     COMMANDS                                            : `${curDirPath}/commands`,
 
+    IMG                                                 : `${curDirPath}/img`,
+
     LINUXCARS                                           : `${curDirPath}/json/linuxcars.json`,
 
     LINKS                                               : `${curDirPath}/json/links.json`,
