@@ -20,7 +20,7 @@
     "Car3": {
         "ID": "3",
         "Type": "Astra",
-        "Ip": "10.9.0.213",
+        "Ip": "10.9.1.22",
         "Login": "prognoz",
         "Password": "Qwerty123456",
         "Free": true,
