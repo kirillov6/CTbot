@@ -1,9 +1,11 @@
 // Команда !linstatus отвечает за получение состояния Linux виртуалок
 
 // Импорт
-const path    = require('../utils/path');
 const Discord = require('discord.js');
-const FS      = require('fs');
+const path = require('../utils/path');
+const FS = require('fs');
+const utils = require('../utils/utils');
+const config = require('../json/config.json');
 
 
 module.exports = {
@@ -13,8 +15,12 @@ module.exports = {
 
     execute(message, args) {
         
-        // Получим данные из файла
+        // Скачаем файл о статусе занятости из гугл-диска
+        utils.DownloadGoogleDriveFile(config.linStatusFileId, path.TMP_LINUXCARS_STATUS);
+
+        // Получим данные о виртуалках из файлов
         let LinuxCars = JSON.parse(FS.readFileSync(path.LINUXCARS));
+        let LinuxCarsStatus = JSON.parse(FS.readFileSync(path.TMP_LINUXCARS_STATUS));
 
         // Создадим блок с информацией
         const linEmbed = new Discord.MessageEmbed()
@@ -26,11 +32,12 @@ module.exports = {
         for (var key in LinuxCars) {
             if (LinuxCars.hasOwnProperty(key)) {
                 let car = LinuxCars[key];
+                let currentUser = LinuxCarsStatus[key].CurrentUser;
                 let status = "";
-                if (car.Free)
-                    status = '✅ Свободна';
+                if (currentUser.ID)
+                    status = `⛔️ Занята [${currentUser.Name}]`;
                 else
-                    status = `⛔️ Занята [${car.CurrentUser}]`;
+                    status = '✅ Свободна';
 
                 linEmbed.addField(`***[${car.ID}] ${car.Type} ${car.Ip}***`, status);
             };

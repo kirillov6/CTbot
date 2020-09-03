@@ -1,0 +1,37 @@
+{
+    "Car1": {
+        "ID": "1",
+        "CurrentUser": {
+            "ID": "",
+            "Name": ""
+        }
+    },
+    "Car2": {
+        "ID": "2",
+        "CurrentUser": {
+            "ID": "",
+            "Name": ""
+        }
+    },
+    "Car3": {
+        "ID": "3",
+        "CurrentUser": {
+            "ID": "",
+            "Name": ""
+        }
+    },
+    "Car4": {
+        "ID": "4",
+        "CurrentUser": {
+            "ID": "",
+            "Name": ""
+        }
+    },
+    "Car5": {
+        "ID": "5",
+        "CurrentUser": {
+            "ID": "",
+            "Name": ""
+        }
+    }
+}

@@ -31,5 +31,5 @@ module.exports = {
 
     LINCAR_FREE_BADUSER         : 'Вы не можете освободить эту виртуалку, т.к. вы ее не занимали',
 
-    BAD_MEMBERNAME              : 'Не удалось получить имя'
+    BAD_MEMBERNAME              : 'Некорректное имя'
 }
