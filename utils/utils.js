@@ -3,10 +3,9 @@
 // Импорт
 const FS = require('fs'); // File System
 const path = require('./path'); // Пути
-const str = require('./str'); // Строки
-const {google} = require('googleapis');
-const googleCreditionals = require('../json/GoogleCreditionals.json');
 const config = require('../json/config.json');
+const googleCreditionals = require('../json/GoogleCreditionals.json');
+const googleSheet = require('google-spreadsheet');
 
 
 // Эмоджи:)
@@ -36,63 +35,6 @@ module.exports = {
         commandFiles.forEach(file => {
             const command = require(`${path.COMMANDS}/${file}`); // Файл команды
 	            commands.set(command.name, command); // Добавление команды в коллекцию
-        });
-    },
-
-    // Получить сервисы гугл-диска
-    GetGoogleService: function() {
-
-        const scopes = [
-            'https://www.googleapis.com/auth/drive',
-            'https://www.googleapis.com/auth/drive.file',
-            'https://www.googleapis.com/auth/drive.appdata',
-            'https://www.googleapis.com/auth/drive.scripts',
-            'https://www.googleapis.com/auth/drive.metadata'
-        ];
-
-        const auth = new google.auth.JWT(
-            googleCreditionals.client_email, null,
-            googleCreditionals.private_key, scopes
-        );
-
-        return google.drive({ version: "v3", auth });
-    },
-
-    // Получение файла из гугл-диска
-    DownloadGoogleDriveFile: function(fileId, destination) {
-
-        const drive = this.GetGoogleService();
-
-        drive.files
-            .get({fileId, alt: 'media'}, {responseType: 'stream'})
-            .then(res => async function() {
-                return await new Promise((resolve, reject) => {
-                    let dest = FS.createWriteStream(destination);
-                    res.data.pipe(dest);
-
-                    res.data.on("error", (err) => {
-                        reject(err);
-                    });
-                    dest.on("finish", function() {
-                        resolve();
-                    });
-                });    
-            });
-    },
-
-    // Обновить файл на гугл-диске
-    UpdateGoogleDriveFile: function(fileId, destination) {
-
-        const drive = this.GetGoogleService();
-
-        const media = {
-            mimeType: 'application/json',
-            body: FS.createReadStream(destination)
-        };
-
-        drive.files.update({
-            fileId: fileId,
-            media: media
         });
     },
 
@@ -152,18 +94,76 @@ module.exports = {
         return result;
     },
 
+    // Получить лист из Google-таблицы
+    GetGoogleSheet: async function(sheetIndex) {
+
+        // Получим Google-таблицу
+        const doc = new googleSheet.GoogleSpreadsheet(config.googleSpreadsheetId);
+
+        // Параметры доступа
+        await doc.useServiceAccountAuth({
+            client_email: googleCreditionals.client_email,
+            private_key: googleCreditionals.private_key,
+          });
+
+        // Загрузим инфу таблицы
+        await doc.loadInfo();
+
+        // Получим нужный лист
+        const sheet = doc.sheetsByIndex[sheetIndex];
+
+        return sheet;
+    },
+
+    // Получить всех текущих пользователей виртуалок из Google-таблицы
+    GetLinuxAllUsers: async function() {
+
+        // Получим нужный лист
+        const sheet = await this.GetGoogleSheet(config.linStatusSheetIndex);
+
+        // Получим все строки
+        const rows = await sheet.getRows();
+
+        let allUsers = [];
+        rows.forEach(row => {
+            allUsers.push({
+                userID: row.UserID,
+                userName: row.UserName
+            });
+        });
+
+        return allUsers;
+    },
+    
+    // Получить текущего пользователя виртуалки из Google-таблицы
+    GetLinuxCurrentUser: async function(carID) {
+
+        // Получим всех пользователей
+        const allUsers = await this.GetLinuxAllUsers();
+
+        return allUsers[carID - 1];
+    },
+
+    // Обновить информацию о текущем пользователе виртуалки в Google-таблице
+    UpdateLinuxCurrentUser: async function(carID, userID, userName) {
+
+        // Получим нужный лист
+        const sheet = await this.GetGoogleSheet(config.linStatusSheetIndex);
+
+        // Получим все строки
+        const rows = await sheet.getRows();
+
+        // Изменим необходимую строку
+        rows[carID - 1].UserID = userID;
+        rows[carID - 1].UserName = userName;
+        await rows[carID - 1].save();
+    },
+
     // Найти виртуалку по айдишнику
-    GetLinuxCar: function(id, pathFile) {
-        
-        // Проверим на корректный формат
-        carID = Number(id);
-        if (isNaN(carID)) {
-            utils.MsgReplyAndDelete(message, str.COMMAND_BADFORMAT_ARGS);
-            return null;
-        };
+    GetLinuxCar: function(carID) {
 
         // Получим данные из файла
-        let LinuxCars = JSON.parse(FS.readFileSync(pathFile));
+        let LinuxCars = JSON.parse(FS.readFileSync(path.LINUXCARS));
 
         // Найдем виртуалку
         for (var key in LinuxCars) {
@@ -196,42 +196,16 @@ module.exports = {
     },
 
     // Занять виртуалку
-    TakeLinuxCar: async function(car, userId, userName) {
+    TakeLinuxCar: async function(carID, userID, userName) {
         
-        // Получим данные из файла
-        let LinuxCarsStatus = JSON.parse(FS.readFileSync(path.TMP_LINUXCARS_STATUS));
-        
-        // Получим ключ
-        let carKey = this.GetLinuxCarKey(car);
-
-        // Изменим данные
-        LinuxCarsStatus[carKey].CurrentUser.ID = userId;
-        LinuxCarsStatus[carKey].CurrentUser.Name = userName;
-
-        // Сохраним измененные данные
-        await FS.writeFileSync(path.TMP_LINUXCARS_STATUS, JSON.stringify(LinuxCarsStatus, null, 4));
-
-        // Обновим файл на гугл-диске
-        this.UpdateGoogleDriveFile(config.linStatusFileId, path.TMP_LINUXCARS_STATUS);
+        // Изменим данные в Google-таблице
+        await this.UpdateLinuxCurrentUser(carID, userID, userName);
     },
 
     // Освободить виртуалку
-    FreeLinuxCar: async function(car) {
+    FreeLinuxCar: async function(carId) {
         
-        // Получим данные из файла
-        let LinuxCarsStatus = JSON.parse(FS.readFileSync(path.TMP_LINUXCARS_STATUS));
-        
-        // Получим ключ
-        let carKey = this.GetLinuxCarKey(car);
-
-        // Изменим данные
-        LinuxCarsStatus[carKey].CurrentUser.ID = "";
-        LinuxCarsStatus[carKey].CurrentUser.Name = "";
-
-        // Сохраним измененные данные
-        await FS.writeFileSync(path.TMP_LINUXCARS_STATUS, JSON.stringify(LinuxCarsStatus, null, 4));
-
-        // Обновим файл на гугл-диске
-        this.UpdateGoogleDriveFile(config.linStatusFileId, path.TMP_LINUXCARS_STATUS);
+        // Изменим данные в Google-таблице
+        await this.UpdateLinuxCurrentUser(carID, "", "");
     },
 }

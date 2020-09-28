@@ -4,8 +4,6 @@
 const { isNull } = require('util');
 const str = require('../utils/str');
 const utils = require('../utils/utils');
-const config = require('../json/config.json');
-const path = require('../utils/path');
 
 
 module.exports = {
@@ -14,7 +12,7 @@ module.exports = {
     args: true,
     max_args: 1,
 
-    execute(message, args) {
+    async execute(message, args) {
         
         // Проверим аргумент на корректность
         carID = Number(args[0]);
@@ -22,24 +20,18 @@ module.exports = {
             return utils.MsgReplyAndDelete(message, str.COMMAND_BADFORMAT_ARGS);
 
         // Найдем виртуалку
-        let car = utils.GetLinuxCar(args[0], path.LINUXCARS);
+        let car = utils.GetLinuxCar(carID);
 
         // Проверим, есть ли такая виртуалка
-        if (isNull(car))
+        if (car === null)
             return utils.MsgReplyAndDelete(message, str.LININFO_BAD_ID);
 
-        // Скачаем файл о статусе занятости из гугл-диска
-        utils.DownloadGoogleDriveFile(config.linStatusFileId, path.TMP_LINUXCARS_STATUS);
-
-        // Получим данные о занятости виртуалки
-        let carStatus = utils.GetLinuxCar(args[0], path.TMP_LINUXCARS_STATUS);
-        
         // Получим текущего пользователя
-        currentUser = carStatus.CurrentUser;
+        const currentUser = await utils.GetLinuxCurrentUser(carID);
 
         // Если виртуалка уже занята, то сообщим
-        if (currentUser.ID)
-            return utils.MsgReplyAndDelete(message, `${str.LINCAR_BUSY} [${currentUser.Name}]`);
+        if (currentUser.userID)
+            return utils.MsgReplyAndDelete(message, `${str.LINCAR_BUSY} [${currentUser.userName}]`);
         
         // Получим данные автора
         const member = message.guild.member(message.author);
@@ -47,7 +39,7 @@ module.exports = {
         const memberName = member ? member.displayName : str.BAD_MEMBERNAME;
 
         // Займем виртуалку
-        utils.TakeLinuxCar(car, memberId, memberName);
+        await utils.TakeLinuxCar(carID, memberId, memberName);
 
         // Отправим на канал
         message.channel.send(`**${memberName}** занял виртуалку #${carID}`);

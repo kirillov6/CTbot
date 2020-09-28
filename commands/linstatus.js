@@ -13,14 +13,13 @@ module.exports = {
     description: 'Получить статус Linux виртуалок',
     args: false,
 
-    execute(message, args) {
+    async execute(message, args) {
         
-        // Скачаем файл о статусе занятости из гугл-диска
-        utils.DownloadGoogleDriveFile(config.linStatusFileId, path.TMP_LINUXCARS_STATUS);
-
-        // Получим данные о виртуалках из файлов
+        // Получим данные о виртуалках из файла
         let LinuxCars = JSON.parse(FS.readFileSync(path.LINUXCARS));
-        let LinuxCarsStatus = JSON.parse(FS.readFileSync(path.TMP_LINUXCARS_STATUS));
+
+        // Получим данные о состоянии занятости виртуалок из Google-таблицы
+        let LinuxCurrentUsers = await utils.GetLinuxAllUsers();
 
         // Создадим блок с информацией
         const linEmbed = new Discord.MessageEmbed()
@@ -32,10 +31,10 @@ module.exports = {
         for (var key in LinuxCars) {
             if (LinuxCars.hasOwnProperty(key)) {
                 let car = LinuxCars[key];
-                let currentUser = LinuxCarsStatus[key].CurrentUser;
+                let currentUser = LinuxCurrentUsers[car.ID - 1];
                 let status = "";
-                if (currentUser.ID)
-                    status = `⛔️ Занята [${currentUser.Name}]`;
+                if (currentUser.userID)
+                    status = `⛔️ Занята [${currentUser.userName}]`;
                 else
                     status = '✅ Свободна';
 
