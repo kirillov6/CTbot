@@ -12,6 +12,7 @@ module.exports = {
     name: 'lininfo',
     description: 'Получить информацию о конкретной Linux виртуалке',
     args: true,
+    min_args: 1,
     max_args: 1,
 
     async execute(message, args) {

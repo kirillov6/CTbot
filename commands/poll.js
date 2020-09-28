@@ -10,6 +10,7 @@ module.exports = {
     name: 'poll',
     description: 'Провести голосование',
     args: true,
+    min_args: 1,
     max_args: 2,
 
     execute(message, args) {

@@ -16,5 +16,9 @@ module.exports = {
 
     RULES                                               : `${curDirPath}/txt/rules.txt`,
 
+    RULES_DEV                                           : `${curDirPath}/txt/rules_dev.txt`,
+
+    RULES_VIS                                           : `${curDirPath}/txt/rules_vis.txt`,
+
     REPO                                                : `${curDirPath}/json/repo.json`
 }

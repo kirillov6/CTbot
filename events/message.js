@@ -36,15 +36,10 @@ module.exports = async (Client, message) => {
 
     // Проверка аргументов
     if (command.args) {
-        if (!args.length || args.length > command.max_args) {
-            let reply = "";
-            if (!args.length)
-                reply = str.COMMAND_NOTENOUGH_ARGS;
-            if (args.length > command.max_args)
-                reply = str.COMMAND_OVERFLOW_ARGS;
-            
-            return utils.MsgReplyAndDelete(message, reply);
-        }
+        if (args.length < command.min_args)
+            return utils.MsgReplyAndDelete(message, str.COMMAND_NOTENOUGH_ARGS);
+        if (args.length > command.max_args)
+            return utils.MsgReplyAndDelete(message, str.COMMAND_OVERFLOW_ARGS);
     }
     else {
         if (args.length)

@@ -4,7 +4,7 @@ module.exports = {
 
     POLL_EMOJI                  : ':scales:',
 
-    POLL_EMPTY_ANSWERS          : 'Укажите хотя бы 1 вариант ответа',
+    POLL_EMPTY_ANSWERS          : 'Необходимо указать хотя бы 1 вариант ответа',
 
     // Формируется так: *Тип действия* *активность*
     // Типы действий: WATCHING, PLAYING, STREAMING, LISTENING
@@ -13,11 +13,11 @@ module.exports = {
     
     COMMAND_NOT_SUPPORT         : 'Данная команда не поддерживается',
 
-    COMMAND_OVERFLOW_ARGS       : 'Вы ввели слишком много аргументов',
+    COMMAND_OVERFLOW_ARGS       : 'Слишком много аргументов',
 
     COMMAND_NOTENOUGH_ARGS      : 'Недостаточно аргументов',
 
-    COMMAND_BADFORMAT_ARGS      : 'Аргументы имеют неверный формат',
+    COMMAND_BADFORMAT_ARGS      : 'Аргумент(ы) имеют неверный формат',
 
     COMMAND_EMPTY_ARGS          : 'Данная команда не поддерживает аргументы',
 

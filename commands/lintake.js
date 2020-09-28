@@ -10,6 +10,7 @@ module.exports = {
     name: 'lintake',
     description: 'Занять Linux виртуалку',
     args: true,
+    min_args: 1,
     max_args: 1,
 
     async execute(message, args) {
@@ -42,6 +43,6 @@ module.exports = {
         await utils.TakeLinuxCar(carID, memberId, memberName);
 
         // Отправим на канал
-        message.channel.send(`**${memberName}** занял виртуалку #${carID}`);
+        message.channel.send(`**${memberName}** занял(а) виртуалку #${carID}`);
     }
 };

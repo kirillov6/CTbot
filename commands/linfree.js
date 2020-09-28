@@ -11,6 +11,7 @@ module.exports = {
     name: 'linfree',
     description: 'Освободить Linux виртуалку',
     args: true,
+    min_args: 1,
     max_args: 1,
 
     async execute(message, args) {
@@ -47,6 +48,6 @@ module.exports = {
         await utils.FreeLinuxCar(carID);
 
         // Отправим на канал
-        message.channel.send(`**${memberName}** освободил виртуалку #${carID}`);
+        message.channel.send(`**${memberName}** освободил(а) виртуалку #${carID}`);
     }
 };
