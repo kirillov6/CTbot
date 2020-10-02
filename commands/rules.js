@@ -34,14 +34,34 @@ module.exports = {
 
         // Считаем все правила
         var rules = FS.readFileSync(filePath, 'utf8');
-        var splitRules = rules.split('-----');
 
-        // Отправим на сервер
-        splitRules.forEach(function(part, index) {
-            message.channel.send(part);
-            
-            if (splitRules.length > 1 && index != splitRules.length - 1)
-                message.channel.send('👀');
-        });
+        // Если длина файла больше допустимой, обрежем и отправим частями
+        if (rules.length >= 2000)
+        {
+            var splitRules = rules.split("\n");
+
+            var res = [];
+            var oneMsg = "";
+            splitRules.forEach(function(part) {
+                
+                var tmp = oneMsg + part;
+                if (tmp.length >= 2000)
+                {
+                    res.push(oneMsg);
+                    oneMsg = "";
+                }
+                else
+                    oneMsg = tmp;
+            });
+
+            if (oneMsg.length > 0)
+                res.push(oneMsg);
+
+            res.forEach(function(part) {
+                message.channel.send(part);
+            });
+        }
+        else
+            message.channel.send(rules);        
     }
 };
