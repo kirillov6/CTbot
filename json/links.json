@@ -9,6 +9,10 @@
             "2": {
                 "Description": "Учет рабочего времени",
                 "Link": "https://v-platform-ets/pp_app_v9.0/app/reporter.html#key=1129"
+            },
+            "3": {
+                "Description": "График отпусков (sa/Qwerty1)",
+                "Link": "https://devets.fsight.ru/pp_app_v9.0/app/olap.html#key=118993&mode=edit&repo=AUTOMATION"
             }
         }
     },
@@ -60,10 +64,6 @@
             "2": {
                 "Description": "Запуск Fore автотестов",
                 "Link": "http://autotools.fsight.ru/App/Tests/Index"
-            },
-            "3": {
-                "Description": "Code Coverage по SB тестам (sa/aeL8eim3oh)",
-                "Link": "http://v-at-cc.dev.fs.fsight.world/FP_App_v9.2/app/olap.html#key=95&mode=edit"
             }
         }
     },
