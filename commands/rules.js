@@ -48,7 +48,7 @@ module.exports = {
                 if (tmp.length >= 2000)
                 {
                     res.push(oneMsg);
-                    oneMsg = "";
+                    oneMsg = part + "\n";
                 }
                 else
                     oneMsg = tmp;
