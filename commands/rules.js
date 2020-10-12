@@ -44,7 +44,7 @@ module.exports = {
             var oneMsg = "";
             splitRules.forEach(function(part) {
                 
-                var tmp = oneMsg + part;
+                var tmp = oneMsg + part + "\n";
                 if (tmp.length >= 2000)
                 {
                     res.push(oneMsg);
