@@ -51,6 +51,10 @@
             "4": {
                 "Description": "Командная папка",
                 "Link": "\\\\fs.fsight.world\\Projects\\P10001_Dev\\Components"
+            },
+            "5": {
+                "Description": "Библиотеки для запуска дебага",
+                "Link": "\\\\fs.fsight.world\\projects\\P10001_Dev\\Components\\библиотеки для запуска дебага"
             }
         }
     },
