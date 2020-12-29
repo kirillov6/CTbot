@@ -55,6 +55,10 @@
             "5": {
                 "Description": "Библиотеки для запуска дебага",
                 "Link": "\\\\fs.fsight.world\\Projects\\P10001_Dev\\Components\\DebugLibs"
+            },
+            "6": {
+                "Description": "Таблица по обмену опытом",
+                "Link": "https://docs.google.com/spreadsheets/d/1YeW8Y2C5TiF3Mu8FBmj7P9iwuSXk1T544kbrFTWlYCg/edit#gid=0"
             }
         }
     },
