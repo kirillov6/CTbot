@@ -40,5 +40,12 @@
         "Ip": "10.9.1.78",
         "Login": "prognoz",
         "Password": "Qwerty123456"
+    },
+    "Car7": {
+        "ID": "7",
+        "Type": "Astra (Redis)",
+        "Ip": "10.30.220.60",
+        "Login": "root",
+        "Password": "Qwerty12345"
     }
 }
