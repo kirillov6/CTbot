@@ -1,7 +1,6 @@
 // Команда !lintake отвечает за "взятие" виртуалки
 
 // Импорт
-const { isNull } = require('util');
 const str = require('../utils/str');
 const utils = require('../utils/utils');
 
@@ -9,9 +8,10 @@ const utils = require('../utils/utils');
 module.exports = {
     name: 'lintake',
     description: 'Занять Linux виртуалку',
-    args: true,
-    min_args: 1,
-    max_args: 1,
+    turnedOn: true,   // Включить/Выключить доступность команды
+    args: true,     // Есть ли аргументы
+    min_args: 1,    // Минимальное количество аргументов
+    max_args: 1,    // Максимальное количество аргументов
 
     async execute(message, args) {
         

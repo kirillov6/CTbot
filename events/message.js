@@ -34,6 +34,10 @@ module.exports = async (Client, message) => {
     // Получение команды
     const command = Client.commands.get(commandName);
 
+    // Если выключена команда, то просто выходим
+    if (!command.turnedOn)
+        return utils.MsgReplyAndDelete(message, str.COMMAND_NOT_SUPPORT);
+
     // Проверка аргументов
     if (command.args) {
         if (args.length < command.min_args)

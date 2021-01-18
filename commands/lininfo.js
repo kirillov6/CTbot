@@ -11,9 +11,10 @@ const path = require('../utils/path');
 module.exports = {
     name: 'lininfo',
     description: 'Получить информацию о конкретной Linux виртуалке',
-    args: true,
-    min_args: 1,
-    max_args: 1,
+    turnedOn: true,   // Включить/Выключить доступность команды
+    args: true,     // Есть ли аргументы
+    min_args: 1,    // Минимальное количество аргументов
+    max_args: 1,    // Максимальное количество аргументов
 
     async execute(message, args) {
         

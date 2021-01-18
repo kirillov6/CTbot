@@ -3,7 +3,8 @@
 module.exports = {
     name: 'ping',
     description: 'Отправить в ответ "Pong"',
-    args: false,
+    turnedOn: true,   // Включить/Выключить доступность команды
+    args: false,     // Есть ли аргументы
 
     execute(message, args) {
         

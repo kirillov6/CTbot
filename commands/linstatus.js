@@ -5,13 +5,13 @@ const Discord = require('discord.js');
 const path = require('../utils/path');
 const FS = require('fs');
 const utils = require('../utils/utils');
-const config = require('../json/config.json');
 
 
 module.exports = {
     name: 'linstatus',
     description: 'Получить статус Linux виртуалок',
-    args: false,
+    turnedOn: true,   // Включить/Выключить доступность команды
+    args: false,     // Есть ли аргументы
 
     async execute(message, args) {
         
