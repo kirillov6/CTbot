@@ -4,8 +4,6 @@
 const Discord = require('discord.js');
 const str = require('../utils/str');
 const utils = require('../utils/utils');
-const config = require('../json/config.json');
-const path = require('../utils/path');
 
 
 module.exports = {

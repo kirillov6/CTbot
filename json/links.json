@@ -100,22 +100,18 @@
         "Name": "Пайплайны",
         "Links": {
             "1": {
-                "Description": "Release x64",
+                "Description": "Release/Debug x64",
                 "Link": "https://tfsprod.fsight.ru/Foresight/AP/_build?definitionId=15"
             },
             "2": {
-                "Description": "Debug x64",
-                "Link": "https://tfsprod.fsight.ru/Foresight/AP/_build?definitionId=114"
-            },
-            "3": {
                 "Description": "Linux",
                 "Link": "https://tfsprod.fsight.ru/Foresight/AP/_build?definitionId=159"
             },
-            "4": {
+            "3": {
                 "Description": "Fore autotests",
-                "Link": "https://tfsprod.fsight.ru/Foresight/AP/_release?view=mine&definitionId=119"
+                "Link": "https://tfsprod.fsight.ru/Foresight/AP/_release?view=mine&definitionId=260"
             },
-            "5": {
+            "4": {
                 "Description": "SilverBullet autotests",
                 "Link": "https://tfsprod.fsight.ru/Foresight/AP/_release?view=mine&definitionId=109"
             }
