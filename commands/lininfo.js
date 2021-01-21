@@ -51,10 +51,10 @@ module.exports = {
 
         // Добавим данные пользователей
         if (car.Admin)
-            carEmbed.addField('**Данные администратора**', `${car.Admin.Login} \n ${car.Admin.Password}`);
+            carEmbed.addField('**Данные администратора**', `Логин: ${car.Admin.Login}\nПароль: ${car.Admin.Password}`);
 
         if (car.User)
-            carEmbed.addField('**Данные пользователя**', `${car.User.Login} \n ${car.User.Password}`);
+            carEmbed.addField('**Данные пользователя**', `Логин: ${car.User.Login}\nПароль: ${car.User.Password}`);
 
         // Добавим состояние
         if (currentUser.userID)
