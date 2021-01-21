@@ -37,7 +37,7 @@ module.exports = {
             .setTitle(`**Виртуалка #${carID}**`)
             .setTimestamp();
 
-        // Добавим поля в блок
+        // Добавим информацию о виртуалке
         carEmbed.addFields(
             {
                 name: '**Тип**',
@@ -46,16 +46,15 @@ module.exports = {
             {
                 name: '**IP**',
                 value: car.Ip
-            },
-            {
-                name: '**Логин**',
-                value: car.Login
-            },
-            {
-                name: '**Пароль**',
-                value: car.Password
             }
         );
+
+        // Добавим данные пользователей
+        if (car.Admin)
+            carEmbed.addField('**Данные администратора**', `${car.Admin.Login} / ${car.Admin.Password}`);
+
+        if (car.User)
+            carEmbed.addField('**Данные пользователя**', `${car.User.Login} / ${car.User.Password}`);
 
         // Добавим состояние
         if (currentUser.userID)
