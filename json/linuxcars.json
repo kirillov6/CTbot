@@ -44,7 +44,7 @@
     "Car7": {
         "ID": "7",
         "Type": "Astra (Redis)",
-        "Ip": "10.30.220.60",
+        "Ip": "10.30.220.39",
         "Login": "root",
         "Password": "Qwerty12345"
     }
