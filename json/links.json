@@ -12,8 +12,12 @@
             },
             "3": {
                 "Description": "График отпусков (sa/Qwerty1)",
-                "Link": "https://devets.fsight.ru/pp_app_v9.0/app/olap.html#key=118993&mode=edit&repo=AUTOMATION"
-            }
+                "Link": "http://10.9.1.68:8192/fp9.2/app/olap.html#key=118993&mode=view&repo=AUTOMATION"
+            },
+			"4": {
+				"Description": "Составы команд (sa/Qwerty1)",
+                "Link": "http://10.9.1.13:8192/fp9.2/app/olap.html#key=120325&mode=view&repo=AUTOMATION"
+			}
         }
     },
     "Wiki": {
