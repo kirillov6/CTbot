@@ -65,5 +65,14 @@
             "Login": "temp3",
             "Password": "123456"
         }
+    },
+    "Car8": {
+        "ID": "8",
+        "Type": "Windows",
+        "Ip": "10.9.1.62",
+        "Admin": {
+            "Login": "Administrator",
+            "Password": "Qwerty1"
+        }
     }
 }
