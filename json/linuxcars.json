@@ -71,7 +71,7 @@
         "Type": "Windows",
         "Ip": "10.9.1.62",
         "Admin": {
-            "Login": "Administrator",
+            "Login": "User",
             "Password": "Qwerty1"
         }
     }
