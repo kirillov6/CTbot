@@ -34,7 +34,7 @@ module.exports = {
 
                 let fieldText = "";
                 if (car.Addition)
-                    fieldText = `(${car.Addition})\n`;
+                    fieldText = `**(${car.Addition})**\n`;
 
                 let currentUser = LinuxCurrentUsers[car.ID - 1];
                 if (currentUser.userID)
