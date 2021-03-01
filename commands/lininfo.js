@@ -49,6 +49,10 @@ module.exports = {
             }
         );
 
+        // Добавим дополнительную информацию
+        if (car.Addition)
+            carEmbed.addField('**Дополнительно**', `${car.Addition}`);
+
         // Добавим данные пользователей
         if (car.Admin)
             carEmbed.addField('**Данные администратора**', `Логин: ${car.Admin.Login}\nПароль: ${car.Admin.Password}`);

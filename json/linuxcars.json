@@ -20,6 +20,7 @@
     "Car3": {
         "ID": "3",
         "Type": "Astra",
+        "Addition": "Redis + Apache",
         "Ip": "10.9.1.22",
         "Admin": {
             "Login": "prognoz",
@@ -55,7 +56,8 @@
     },
     "Car7": {
         "ID": "7",
-        "Type": "Astra (Redis)",
+        "Type": "Astra",
+        "Addition": "Redis + Apache + Proxy + ALD",
         "Ip": "10.30.220.39",
         "Admin": {
             "Login": "root",

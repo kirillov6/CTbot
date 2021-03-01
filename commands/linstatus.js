@@ -31,14 +31,18 @@ module.exports = {
         for (var key in LinuxCars) {
             if (LinuxCars.hasOwnProperty(key)) {
                 let car = LinuxCars[key];
-                let currentUser = LinuxCurrentUsers[car.ID - 1];
-                let status = "";
-                if (currentUser.userID)
-                    status = `⛔️ Занята [${currentUser.userName}]`;
-                else
-                    status = '✅ Свободна';
 
-                linEmbed.addField(`***[${car.ID}] ${car.Type} ${car.Ip}***`, status);
+                let fieldText = "";
+                if (car.Addition)
+                    fieldText = `(${car.Addition})\n`;
+
+                let currentUser = LinuxCurrentUsers[car.ID - 1];
+                if (currentUser.userID)
+                    fieldText += `⛔️ Занята [${currentUser.userName}]`;
+                else
+                    fieldText += '✅ Свободна';
+                
+                linEmbed.addField(`***[${car.ID}] ${car.Type} ${car.Ip}***`, fieldText);
             };
         };
 
