@@ -2,7 +2,7 @@
     "Car1": {
         "ID": "1",
         "Type": "Astra",
-        "Ip": "10.9.0.183",
+        "Ip": "10.9.0.202",
         "Admin": {
             "Login": "prognoz",
             "Password": "Qwerty123456"
