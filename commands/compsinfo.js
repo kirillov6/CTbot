@@ -14,7 +14,7 @@ module.exports = {
     min_args: 1,        // Минимальное количество аргументов
     max_args: 1,        // Максимальное количество аргументов
 
-    execute(message, args) {
+    async execute(message, args) {
         
         if (args[0] == "ver") {
 
@@ -26,7 +26,7 @@ module.exports = {
 
             for (var key in listOfInstructions) {
                 if (listOfInstructions.hasOwnProperty(key)) {
-                    message.channel.send(key, new Discord.MessageAttachment(`${path.IMG}/${listOfInstructions[key]}`));
+                    await message.channel.send(key, new Discord.MessageAttachment(`${path.IMG}/${listOfInstructions[key]}`));
                 }
             }
         }
