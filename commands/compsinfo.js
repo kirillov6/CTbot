@@ -21,7 +21,7 @@ module.exports = {
             var listOfInstructions = {
                 "1. Открываем компонент на редактирование:": file.COMPSINFO_VER_1,
                 "2. Смотрим версию компонента:": file.COMPSINFO_VER_2,
-                "2. Соотносим версию компонента с версией мастера:": file.COMPSINFO_VER_3
+                "3. Соотносим версию компонента с версией мастера:": file.COMPSINFO_VER_3
             }
 
             for (var key in listOfInstructions) {
