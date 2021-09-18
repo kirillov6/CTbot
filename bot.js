@@ -2,9 +2,8 @@
 const Discord = require('discord.js');    // Discord API
 const utils   = require('./utils/utils'); // Вспомогательные функции
 
-// Импорт конфига
-const { token } = require('./json/config.json');
-
+// Инициализируем переменные среды
+require('dotenv').config();
 
 // Создание объекта-клиента
 const Client = new Discord.Client();
@@ -17,4 +16,4 @@ utils.LoadEvents(Client);
 utils.FillCommands(Client.commands);
 
 // Подключение к серверу
-Client.login(token);
+Client.login(process.env.DISCORD_TOKEN);

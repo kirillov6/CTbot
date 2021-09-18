@@ -1,7 +1,7 @@
 //Обработчик события - получение сообщения
 
 // Импорт
-const { prefix } = require('../json/config.json');
+const { prefix } = require('../config.json');
 const str        = require('../utils/str');
 const utils      = require('../utils/utils');
 
@@ -22,6 +22,13 @@ module.exports = async (Client, message) => {
     if (!Client.commands.has(commandName))
         return utils.MsgReplyAndDelete(message, str.COMMAND_NOT_SUPPORT);
 
+    // Получение команды
+    const command = Client.commands.get(commandName);
+
+    // Если выключена команда, то просто выходим
+    if (!command.turnedOn)
+        return utils.MsgReplyAndDelete(message, str.COMMAND_NOT_SUPPORT);
+
     // Для команды POLL переопределим аргументы, т.к. там аргументы в кавычках
     if (commandName === 'poll' && args.length) {
         pollArgs = utils.GetPollArgs(message);
@@ -30,13 +37,6 @@ module.exports = async (Client, message) => {
         else
             return utils.MsgReplyAndDelete(message, str.COMMAND_BADFORMAT_ARGS);
     }
-
-    // Получение команды
-    const command = Client.commands.get(commandName);
-
-    // Если выключена команда, то просто выходим
-    if (!command.turnedOn)
-        return utils.MsgReplyAndDelete(message, str.COMMAND_NOT_SUPPORT);
 
     // Проверка аргументов
     if (command.args) {
