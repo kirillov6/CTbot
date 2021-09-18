@@ -119,13 +119,13 @@ module.exports = {
     // Получить лист из Google-таблицы
     GetGoogleSheet: async function(sheetIndex) {
         // Получим Google-таблицу
-        const doc = new googleSheet.GoogleSpreadsheet(process.env.GOOGLESPREADSHEET_ID);
+        const doc = new googleSheet.GoogleSpreadsheet(process.env.GOOGLE_SPREADSHEET_ID);
 
         // Параметры доступа
         await doc.useServiceAccountAuth({
-            client_email: googleCreditionals.client_email,
-            private_key: googleCreditionals.private_key,
-          });
+            client_email: process.env.GOOGLE_CREDITIONALS_EMAIL,
+            private_key: process.env.GOOGLE_CREDITIONALS_KEY,
+        });
 
         // Загрузим инфу таблицы
         await doc.loadInfo();
