@@ -4,7 +4,6 @@
 const FS = require('fs'); // File System
 const path = require('./path'); // Пути
 const config = require('../config.json');
-const googleCreditionals = require('../json/GoogleCreditionals.json');
 const googleSheet = require('google-spreadsheet');
 
 
