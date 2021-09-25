@@ -31,7 +31,7 @@ module.exports = async (Client, message) => {
 
     // Для команды POLL переопределим аргументы, т.к. там аргументы в кавычках
     if (commandName === 'poll' && args.length) {
-        pollArgs = utils.GetPollArgs(message);
+        pollArgs = GetPollArgs(message);
         if (pollArgs)
             args = pollArgs;
         else
@@ -60,3 +60,18 @@ module.exports = async (Client, message) => {
         utils.MsgReplyAndDelete(message, str.COMMAND_ERROR);
     }
 };
+
+
+// Определить аргументы для команды Poll
+function GetPollArgs(message) {
+    let args = message.content.match(/"(\\.|[^"\\])*"/g); // Регулярное выражние - берем все подстроки в кавычках
+
+    // Удаление кавычек из аргументов
+    if (args && args.length) {
+        args.forEach(function(part, index) {
+            args[index] = args[index].replace(/"/g, '');
+        });
+    };
+
+    return args;
+}

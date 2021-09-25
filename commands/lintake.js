@@ -40,9 +40,16 @@ module.exports = {
         const memberName = member ? member.displayName : str.BAD_MEMBERNAME;
 
         // Займем виртуалку
-        await utils.TakeLinuxCar(carID, memberId, memberName);
+        await TakeLinuxCar(carID, memberId, memberName);
 
         // Отправим на канал
         message.channel.send(`**${memberName}** занял(а) виртуалку #${carID}`);
     }
 };
+
+
+// Занять виртуалку
+async function TakeLinuxCar(carID, userID, userName) {
+    // Изменим данные в Google-таблице
+    await utils.UpdateLinuxCurrentUser(carID, userID, userName);
+}

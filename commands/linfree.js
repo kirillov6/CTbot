@@ -44,9 +44,16 @@ module.exports = {
             return utils.MsgReplyAndDelete(message, str.LINCAR_FREE_BADUSER);
 
         // Освободим виртуалку
-        await utils.FreeLinuxCar(carID);
+        await FreeLinuxCar(carID);
 
         // Отправим на канал
         message.channel.send(`**${memberName}** освободил(а) виртуалку #${carID}`);
     }
 };
+
+
+// Освободить виртуалку
+async function FreeLinuxCar(carId) {
+    // Изменим данные в Google-таблице
+    await utils.UpdateLinuxCurrentUser(carID, "", "");
+}
