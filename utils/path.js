@@ -8,17 +8,17 @@ module.exports = {
 
     COMMANDS                                            : `${curDirPath}/commands`,
 
-    IMG                                                 : `${curDirPath}/img`,
+    IMG                                                 : `${curDirPath}/res/img`,
 
-    LINUXCARS                                           : `${curDirPath}/json/linuxcars.json`,
+    LINUXCARS                                           : `${curDirPath}/res/json/linuxcars.json`,
 
-    LINKS                                               : `${curDirPath}/json/links.json`,
+    LINKS                                               : `${curDirPath}/res/json/links.json`,
 
-    RULES                                               : `${curDirPath}/txt/rules.txt`,
+    RULES                                               : `${curDirPath}/res/txt/rules.txt`,
 
-    RULES_DEV                                           : `${curDirPath}/txt/rules_dev.txt`,
+    RULES_DEV                                           : `${curDirPath}/res/txt/rules_dev.txt`,
 
-    RULES_VIS                                           : `${curDirPath}/txt/rules_vis.txt`,
+    RULES_VIS                                           : `${curDirPath}/res/txt/rules_vis.txt`,
 
-    REPO                                                : `${curDirPath}/json/repo.json`
+    REPO                                                : `${curDirPath}/res/json/repo.json`
 }
