@@ -9,8 +9,8 @@ const Discord = require('discord.js');
 module.exports = {
     name: 'scheme',
     description: 'Получить схему работы при отсутствии задач',
-    turnedOn: true,   // Включить/Выключить доступность команды
-    args: false,     // Есть ли аргументы
+    turnedOn: true,     // Включить/Выключить доступность команды
+    args: false,        // Есть ли аргументы
 
     execute(message, args) {
         

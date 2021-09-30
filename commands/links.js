@@ -9,8 +9,8 @@ const FS      = require('fs');
 module.exports = {
     name: 'links',
     description: 'Получить список полезных ссылок',
-    turnedOn: true,   // Включить/Выключить доступность команды
-    args: false,     // Есть ли аргументы
+    turnedOn: true,     // Включить/Выключить доступность команды
+    args: false,        // Есть ли аргументы
 
     async execute(message, args) {
         

@@ -9,10 +9,10 @@ const Discord = require('discord.js');
 module.exports = {
     name: 'poll',
     description: 'Провести голосование',
-    turnedOn: true,   // Включить/Выключить доступность команды
-    args: true,     // Есть ли аргументы
-    min_args: 1,    // Минимальное количество аргументов
-    max_args: 2,    // Максимальное количество аргументов
+    turnedOn: true,     // Включить/Выключить доступность команды
+    args: true,         // Есть ли аргументы
+    min_args: 1,        // Минимальное количество аргументов
+    max_args: 2,        // Максимальное количество аргументов
 
     execute(message, args) {
         

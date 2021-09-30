@@ -10,8 +10,8 @@ const utils = require('../utils/utils');
 module.exports = {
     name: 'linstatus',
     description: 'Получить статус Linux виртуалок',
-    turnedOn: true,   // Включить/Выключить доступность команды
-    args: false,     // Есть ли аргументы
+    turnedOn: true,     // Включить/Выключить доступность команды
+    args: false,        // Есть ли аргументы
 
     async execute(message, args) {
         

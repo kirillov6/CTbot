@@ -8,10 +8,10 @@ const utils = require('../utils/utils');
 module.exports = {
     name: 'linfree',
     description: 'Освободить Linux виртуалку',
-    turnedOn: true,   // Включить/Выключить доступность команды
-    args: true,     // Есть ли аргументы
-    min_args: 1,    // Минимальное количество аргументов
-    max_args: 1,    // Максимальное количество аргументов
+    turnedOn: true,     // Включить/Выключить доступность команды
+    args: true,         // Есть ли аргументы
+    min_args: 1,        // Минимальное количество аргументов
+    max_args: 1,         // Максимальное количество аргументов
 
     async execute(message, args) {
         

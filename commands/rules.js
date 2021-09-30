@@ -10,10 +10,10 @@ const utils = require('../utils/utils');
 module.exports = {
     name: 'rules',
     description: 'Получить правила команды',
-    turnedOn: true,   // Включить/Выключить доступность команды
-    args: true,     // Есть ли аргументы
-    min_args: 0,    // Минимальное количество аргументов
-    max_args: 1,    // Максимальное количество аргументов
+    turnedOn: true,     // Включить/Выключить доступность команды
+    args: true,         // Есть ли аргументы
+    min_args: 0,        // Минимальное количество аргументов
+    max_args: 1,        // Максимальное количество аргументов
 
     execute(message, args) {
         
