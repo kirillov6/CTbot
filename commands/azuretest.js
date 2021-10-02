@@ -1,7 +1,8 @@
 // Команда !azuretest
 
 // Импорт
-azdev = require('azure-devops-node-api');
+const utils = require('../utils/utils');
+const bi = require('azure-devops-node-api/interfaces/BuildInterfaces')
 
 module.exports = {
     name: 'azuretest',
@@ -12,14 +13,33 @@ module.exports = {
     max_args: 1,        // Максимальное количество аргументов
 
     async execute(message, args) {
+        const azureApi = await utils.GetAzureApi();
+        const buildApi = await azureApi.getBuildApi();
+
+        const { azureProject } = require('../config.json');
         
-        let url = 'https://tfsprod.fsight.ru/Foresight';
-        let token = process.env.AZURE_TOKEN;
+        let resStr = 'last 10 successfull builds:\n';
 
-        let authHandler = azdev.getPersonalAccessTokenHandler(token);
-        let connection = new azdev.WebApi(url, authHandler);
+        let builds = await buildApi.getBuilds(azureProject)
+        .catch(error => {
+            console.error(error);
+        });
+        
+        for (var build in builds) {
+            resStr += `\tbuildNumber: ${build.buildNumber}\n`;
+            resStr += `\trequestedBy: ${build.requestedBy.displayName}\n`;
+            resStr += `\tfinished time: ${build.finishTime.toDateString()}\n\n`;
+        };
+        
+        // let resStr = 'projects:\n';
+        // const coreApi = await azureApi.getCoreApi();
+        // const projects = await coreApi.getProjects();
+        // for (var p in projects) {
+        //     resStr += `\t description: ${p.description}\n`;
+        //     resStr += `\t id: ${p.id}\n`;
+        //     resStr += `\t url: ${p.url}\n`;
+        // };
 
-        let connData = await connection.connect();
-        message.channel.send(`Hello ${connData.authenticatedUser.providerDisplayName}`);
+        message.channel.send(resStr);
     }
 };

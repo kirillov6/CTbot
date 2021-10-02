@@ -26,7 +26,9 @@ module.exports = {
                     await messageReaction.react('👎');
                     await messageReaction.react('🤷‍♂️');
                 })
-                .catch(console.error);
+                .catch(error => {
+                    console.error(error);
+                });
                 break;
             case 2:
                 // Получим варианты ответа
@@ -66,7 +68,9 @@ module.exports = {
                         await messageReaction.react(randomEmojis[index]);                         
                     });
                 })
-                .catch(console.error);
+                .catch(error => {
+                    console.error(error);
+                });
                 break;
             default:
                 break;

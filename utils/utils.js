@@ -9,13 +9,13 @@ module.exports = {
         message.reply(reply)
             .then(msg => {msg.delete({ timeout: time * 1000 }) }) // Удалим ответ
             .then(() => message.delete({ timeout: time * 1000 })) // Удалим команду
-            .catch(console.error);
+            .catch(error => { console.log(error); });
     },
 
     // Удалить сообщение
     MsgDelete: function(message, time){
         message.delete({ timeout: time * 1000 })
-            .catch(console.error);
+            .catch(error => { console.log(error); });
     },
 
     // Получить лист из Google-таблицы
@@ -94,5 +94,14 @@ module.exports = {
         };
 
         return null;
+    },
+
+    // Получить Azure DevOps API
+    GetAzureApi: function() {
+        azdev = require('azure-devops-node-api');
+        const { azureUrl } = require('../config.json');
+
+        let authHandler = azdev.getBasicHandler(process.env.AZURE_USERNAME, process.env.AZURE_PASSWORD);
+        return new azdev.WebApi(azureUrl, authHandler);
     },
 }
