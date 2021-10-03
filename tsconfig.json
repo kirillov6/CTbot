@@ -1,0 +1,18 @@
+{
+    // Подробнее о параметрах - https://www.typescriptlang.org/docs/handbook/tsconfig-json.html
+
+    "compilerOptions": {
+      "module": "commonjs",
+      "target": "es2019",
+      "moduleResolution": "node",
+      "outDir": "_build",
+      "noImplicitAny": false,
+      "emitDecoratorMetadata": true,
+      "experimentalDecorators": true,
+      "importHelpers": true,
+      "forceConsistentCasingInFileNames": true
+    },
+    "exclude": [
+      "node_modules"
+    ]
+}
