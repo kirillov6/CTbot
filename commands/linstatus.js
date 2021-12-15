@@ -42,7 +42,7 @@ module.exports = {
                 else
                     fieldText += '✅ Свободна';
                 
-                linEmbed.addField(`***[${car.ID}] ${car.Type} ${car.Ip}***`, fieldText);
+                linEmbed.addField(`***[${car.ID}] ${car.Type} (${car.Ip})***`, fieldText);
             };
         };
 
