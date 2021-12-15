@@ -6,7 +6,7 @@ import {
 
 export abstract class Ping {
     @Command('ping')
-    async ping(message: CommandMessage) {
-        await message.reply('Pong');
+    private ping(message: CommandMessage) {
+        message.reply('Pong');
     }
 }

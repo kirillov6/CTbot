@@ -1,4 +1,3 @@
-import 'reflect-metadata';
 import './AppDiscord';
 import { Client } from '@typeit/discord';
 
@@ -9,10 +8,9 @@ async function run() {
     // Создание объекта-клиента
     const client = new Client({
         classes: [
-            `${__dirname}/*Discord.ts`,
-            `${__dirname}/*Discord.js` // После компиляции расширение .ts сменится на .js
-        ],
-        variablesChar: ":"  // Префикс для переменных в декораторах
+			`${__dirname}/*Discord.[jt]s`
+		],
+		variablesChar: ':'
     });
 
     // Подключение к серверу

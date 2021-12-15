@@ -1,24 +1,27 @@
 {
-  "name": "CTbot",
-  "version": "1.0.0",
-  "description": "ComponentsTeam Discord Bot",
+  "name": "components-team-bot",
+  "version": "2.0.0",
+  "description": "Components Team Discord Bot",
   "main": "bot.js",
   "scripts": {
-    "start": "npx tsc && node bot.js"
+    "clean": "rm -Rf ./_build",
+    "build": "npm run clean && tsc && cp ./config.json ./_build/config.json",
+    "start": "npm run build && node ./_build/bot.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@typeit/discord": "^4.0.10",
+    "azure-devops-node-api": "^11.0.1",
+    "discord.js": "^13.1.0",
+    "dotenv": "^10.0.0",
+    "google-spreadsheet": "^3.1.15",
+    "typescript": "^4.4.3"
+  },
+  "devDependencies": {
     "@types/google-spreadsheet": "^3.1.5",
     "@types/node": "^16.10.2",
-    "azure-devops-node-api": "^11.0.1",
-    "discord.js": "^12.2.0",
-    "dotenv": "^8.2.0",
-    "google-spreadsheet": "^3.1.15",
-    "reflect-metadata": "^0.1.13",
-    "tslib": "^2.3.1",
-    "typescript": "^4.4.3"
+    "tslib": "^2.3.1"
   }
 }

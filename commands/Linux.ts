@@ -36,7 +36,7 @@ interface LinuxCar {
 
 export abstract class Linux {
     @Command('linstatus')
-    async linStatus(message: CommandMessage) {
+    private async linStatus(message: CommandMessage) {
         // Получим данные о виртуалках из файла
         const LinuxCars = JSON.parse(fs.readFileSync(LinuxCarsFile).toString());
 
@@ -73,7 +73,7 @@ export abstract class Linux {
     }
 
     @Command('lininfo :carId')
-    async linInfo(message: CommandMessage) {
+    private async linInfo(message: CommandMessage) {
         const { carId } = message.args;
         if (!(typeof carId === 'number')) {
             Utils.msgReplyAndDelete(message, Consts.Str.COMMAND_BADFORMAT_ARGS);
@@ -132,7 +132,7 @@ export abstract class Linux {
     }
 
     @Command('lintake :carId')
-    async linTake(message: CommandMessage) {
+    private async linTake(message: CommandMessage) {
         const { carId } = message.args;
         if (!(typeof carId === 'number')) {
             Utils.msgReplyAndDelete(message, Consts.Str.COMMAND_BADFORMAT_ARGS);
@@ -170,7 +170,7 @@ export abstract class Linux {
     }
 
     @Command('linfree :carId')
-    async linFree(message: CommandMessage) {
+    private async linFree(message: CommandMessage) {
         const { carId } = message.args;
         if (!(typeof carId === 'number')) {
             Utils.msgReplyAndDelete(message, Consts.Str.COMMAND_BADFORMAT_ARGS);
