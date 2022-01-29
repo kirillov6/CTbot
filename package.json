@@ -2,6 +2,7 @@
   "name": "components-team-bot",
   "version": "2.0.0",
   "description": "Components Team Discord Bot",
+  "type": "module",
   "main": "bot.js",
   "scripts": {
     "clean": "rm -Rf ./_build",
@@ -9,19 +10,20 @@
     "start": "npm run build && node ./_build/bot.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Yaroslav Kirillov",
   "license": "ISC",
   "dependencies": {
-    "@typeit/discord": "^4.0.10",
-    "azure-devops-node-api": "^11.0.1",
-    "discord.js": "^13.1.0",
+    "azure-devops-node-api": "^11.1.0",
+    "discord.js": "^13.4.0",
+    "discordx": "^9.1.5",
     "dotenv": "^10.0.0",
-    "google-spreadsheet": "^3.1.15",
-    "typescript": "^4.4.3"
+    "google-spreadsheet": "^3.2.0",
+    "reflect-metadata": "^0.1.13",
+    "typescript": "^4.5.4"
   },
   "devDependencies": {
+    "@discordx/importer": "^1.1.2",
     "@types/google-spreadsheet": "^3.1.5",
-    "@types/node": "^16.10.2",
-    "tslib": "^2.3.1"
+    "@types/node": "^17.0.5"
   }
 }

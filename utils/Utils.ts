@@ -1,17 +1,17 @@
 // Вспомогательные телодвижения
 
-import { CommandMessage } from '@typeit/discord';
+import { CommandInteraction } from 'discord.js';
 import * as GoogleSheet from 'google-spreadsheet';
 import * as AzDev from 'azure-devops-node-api';
 
 export class Utils {
     // Ответить и удалить ответ вместе с сообщением
-    static msgReplyAndDelete(message: CommandMessage, reply: string, time = 6) {
-        message.reply(reply)
-            .then(msg => { msg.delete({ timeout: time * 1000 }) }) // Удалим ответ
-            .then(() => message.delete({ timeout: time * 1000 })) // Удалим команду
-            .catch(error => { console.log(error); });
-    }
+    // static msgReplyAndDelete(interaction: CommandInteraction, reply: string, time = 6) {
+    //     interaction.reply(reply)
+    //         .then(msg => { interaction.delete({ timeout: time * 1000 }) }) // Удалим ответ
+    //         .then(() => message.delete({ timeout: time * 1000 })) // Удалим команду
+    //         .catch(error => { console.log(error); });
+    // }
 
     // Получить лист из Google-таблицы
     static async getGoogleSheet(sheetIndex: number) {

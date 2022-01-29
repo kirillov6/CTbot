@@ -1,12 +1,9 @@
-export declare const Consts: {
+export const Consts = Object.freeze({
     Str: {
         POLL_EMOJI:                     ':scales:',
         POLL_EMPTY_ANSWERS:             'Необходимо указать хотя бы 1 вариант ответа',
 
-        // Формируется так: *Тип действия* *активность*
-        // Типы действий: WATCHING, PLAYING, STREAMING, LISTENING
         BOT_ACTIVITY:                   'критичные баги',
-        BOT_ACTIVITY_TYPE:              'WATCHING',
 
         COMMAND_NOT_SUPPORT:            'Данная команда не поддерживается',
         COMMAND_OVERFLOW_ARGS:          'Слишком много аргументов',
@@ -19,7 +16,7 @@ export declare const Consts: {
         LINCAR_FREE:                    'Данная виртуалка уже свободна',
         LINCAR_FREE_BADUSER:            'Вы не можете освободить эту виртуалку, т.к. вы ее не занимали',
         BAD_MEMBERNAME:                 'Некорректное имя'
-    }
+    },
 
     File: {
         WI_SCHEME:                      'WIscheme.png',
@@ -27,4 +24,4 @@ export declare const Consts: {
         COMPSINFO_VER_2:                'CompsInfo/ver_2.png',
         COMPSINFO_VER_3:                'CompsInfo/ver_3.png'
     }
-}
+});

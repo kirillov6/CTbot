@@ -1,19 +1,14 @@
-//Обработчик события - подключение бота на сервер
+import { ActivityTypes } from 'discord.js/typings/enums';
+import { Client, Discord, On } from 'discordx';
+import { Consts } from '../utils/const.js';
 
-import { 
-    Client,
-    On
-} from '@typeit/discord';
-
-import { Consts } from '../utils/Const';
-
-
+@Discord()
 export abstract class Ready {
     @On('ready')
     private onReady(client: Client) {
-        console.log(`Logged in as ${client.user.tag}!`);
+        //console.log(`Logged in as ${client.user.tag}!`);
 
         // Установка активности
-        client.user.setActivity(Consts.Str.BOT_ACTIVITY, { type: Consts.Str.BOT_ACTIVITY_TYPE});
+        //client.user.setActivity(Consts.Str.BOT_ACTIVITY, { type: ActivityTypes.WATCHING });
     }
 }
