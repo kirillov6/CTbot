@@ -1,11 +1,14 @@
-import { CommandInteraction } from 'discord.js';
-import { Discord, Slash } from 'discordx';
+import { 
+    Discord,
+    SimpleCommand,
+    SimpleCommandMessage
+ } from 'discordx';
 
 
 @Discord()
 export abstract class Ping {
-    @Slash('ping')
-    ping(interaction: CommandInteraction) {
-        interaction.reply('Pong');
+    @SimpleCommand('ping')
+    ping(command: SimpleCommandMessage) {
+        command.message.reply('Pong');
     }
 }

@@ -2,7 +2,7 @@
   "name": "components-team-bot",
   "version": "2.0.0",
   "description": "Components Team Discord Bot",
-  "type": "module",
+  "type": "commonjs",
   "main": "bot.js",
   "scripts": {
     "clean": "rm -Rf ./_build",
