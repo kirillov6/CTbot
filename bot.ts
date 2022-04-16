@@ -1,9 +1,8 @@
 import 'reflect-metadata';
-import { Intents, Message } from 'discord.js';
-import { ActivityTypes } from 'discord.js/typings/enums';
+import { Intents } from 'discord.js';
 import { Client } from 'discordx';
 import { importx } from '@discordx/importer';
-import { Str } from './utils/consts';
+import { NotBot } from './guards/NotBot'
 
 // Инициализируем переменные среды
 import('dotenv').then(module => {module.config()});
@@ -21,17 +20,8 @@ const client = new Client({
         Intents.FLAGS.GUILD_MESSAGES,
         Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
         //Intents.FLAGS.GUILD_VOICE_STATES,
-    ]
-});
-  
-client.once("ready", async () => {
-    await client.user.setActivity(Str.BOT_ACTIVITY, { type: ActivityTypes.WATCHING })
-
-    console.log("Bot started");
-});
-
-client.on("messageCreate", (message: Message) => {
-    client.executeCommand(message);
+    ],
+    guards: [NotBot]
 });
 
 async function run() {
