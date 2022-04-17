@@ -1,270 +1,284 @@
-// import {
-//     Command,
-//     CommandMessage
-// } from '@typeit/discord';
 
-// import { MessageEmbed } from 'discord.js'
+import { 
+    Discord,
+    SimpleCommand,
+    SimpleCommandMessage,
+    SimpleCommandOption
+} from "discordx";
 
-// import fs = require('fs');
-// import { Consts } from '../utils/Const';
-// import { Utils } from '../utils/Utils';
+import { MessageEmbed } from "discord.js"
+import fs = require('fs');
+import { Str } from '../utils/consts';
+import { Utils } from '../utils/utils';
+
+const VMFile = `${__dirname}/../res/json/virtualmachines.json`;
+const { VMStatusSheetIndex } = require('../config.json');
 
 
-// const LinuxCarsFile = `${process.cwd()}/res/json/linuxcars.json`;
-// const { linStatusSheetIndex } = require('./config.json');
+interface VMUser {
+    userId?: string;
+    userName?: string;
+}
 
+interface VM {
+    ID: number,
+    Type: string,
+    Addition?: string,
+    Ip: string,
+    Admin: {
+        Login: string,
+        Password: string
+    },
+    User?: {
+        Login: string,
+        Password: string
+    }
+}
 
-// interface LinuxUser {
-//     userId?: string;
-//     userName?: string;
-// }
+@Discord()
+export abstract class VirtualMachines {
+    @SimpleCommand("vmstatus", { 
+        description: "Состояние виртуальных машин"
+    })
+    async vmStatus(command: SimpleCommandMessage) {
+        // Получим данные о виртуалках из файла
+        const VMs = JSON.parse(fs.readFileSync(VMFile).toString());
 
-// interface LinuxCar {
-//     ID: number,
-//     Type: string,
-//     Addition?: string,
-//     Ip: string,
-//     Admin: {
-//         Login: string,
-//         Password: string
-//     },
-//     User?: {
-//         Login: string,
-//         Password: string
-//     }
-// }
+        // Получим данные о состоянии занятости виртуалок из Google-таблицы
+        const VMCurrentUsers = await this.getVMAllUsers();
 
-// export abstract class Linux {
-//     @Command('linstatus')
-//     private async linStatus(message: CommandMessage) {
-//         // Получим данные о виртуалках из файла
-//         const LinuxCars = JSON.parse(fs.readFileSync(LinuxCarsFile).toString());
+        // Создадим блок с информацией
+        const vmEmbed = new MessageEmbed()
+            .setColor('#DB97D9')
+            .setTitle('Состояние виртуальных машин')
+            .setTimestamp();
 
-//         // Получим данные о состоянии занятости виртуалок из Google-таблицы
-//         const LinuxCurrentUsers = await this.getLinuxAllUsers();
+        // Добавим поля в блок
+        for (var key in VMs) {
+            if (VMs.hasOwnProperty(key)) {
+                let vm = VMs[key];
 
-//         // Создадим блок с информацией
-//         const linEmbed = new MessageEmbed()
-//             .setColor('#DB97D9')
-//             .setTitle('Состояние виртуалок Linux')
-//             .setTimestamp();
+                let fieldText = "";
+                if (vm.Addition)
+                    fieldText = `**(${vm.Addition})**\n`;
 
-//         // Добавим поля в блок
-//         for (var key in LinuxCars) {
-//             if (LinuxCars.hasOwnProperty(key)) {
-//                 let car = LinuxCars[key];
-
-//                 let fieldText = "";
-//                 if (car.Addition)
-//                     fieldText = `**(${car.Addition})**\n`;
-
-//                 let currentUser = LinuxCurrentUsers[car.ID - 1];
-//                 if (currentUser.userId)
-//                     fieldText += `⛔️ Занята [${currentUser.userName}]`;
-//                 else
-//                     fieldText += '✅ Свободна';
+                let currentUser = VMCurrentUsers[vm.ID - 1];
+                if (currentUser.userId)
+                    fieldText += `⛔️ Занята [${currentUser.userName}]`;
+                else
+                    fieldText += '✅ Свободна';
                 
-//                 linEmbed.addField(`***[${car.ID}] ${car.Type} ${car.Ip}***`, fieldText);
-//             };
-//         };
+                    vmEmbed.addField(`***[${vm.ID}] ${vm.Type} ${vm.Ip}***`, fieldText);
+            };
+        };
 
-//         // Отправим на канал
-//         message.channel.send({embed: linEmbed});
-//     }
+        // Отправим на канал
+        command.message.channel.send({ embeds: [vmEmbed] });
+    }
 
-//     @Command('lininfo :carId')
-//     private async linInfo(message: CommandMessage) {
-//         const { carId } = message.args;
-//         if (!(typeof carId === 'number')) {
-//             Utils.msgReplyAndDelete(message, Consts.Str.COMMAND_BADFORMAT_ARGS);
-//             return;
-//         }
+    @SimpleCommand("vminfo", { 
+        description: "Данные виртуальной машины"
+    })
+    async vmInfo(
+        @SimpleCommandOption("id", { type: "INTEGER" }) id: number,
+        command: SimpleCommandMessage
+    ) {
+        const message = command.message;
 
-//         // Найдем виртуалку
-//         let car = await this.getLinuxCar(carId);
+        if (!id)
+            return Utils.msgReplyAndDelete(message, Str.COMMAND_NOTENOUGH_ARGS);
 
-//         // Проверим, есть ли такая виртуалка
-//         if (car === null) {
-//             Utils.msgReplyAndDelete(message, Consts.Str.LININFO_BAD_ID);
-//             return;
-//         }
+        // Найдем виртуалку
+        let vm = await this.getVM(id);
 
-//         // Получим текущего пользователя
-//         const currentUser = await this.getLinuxCurrentUser(carId);
+        // Проверим, есть ли такая виртуалка
+        if (!vm)
+            return Utils.msgReplyAndDelete(message, Str.LININFO_BAD_ID);
 
-//         // Создадим блок с информацией
-//         const carEmbed = new MessageEmbed()
-//             .setColor('#ED685F')
-//             .setTitle(`**Виртуалка #${carId}**`)
-//             .setTimestamp();
+        // Получим текущего пользователя
+        const currentUser = await this.getVMCurrentUser(id);
 
-//         // Добавим информацию о виртуалке
-//         carEmbed.addFields(
-//             {
-//                 name: '**Тип**',
-//                 value: car.Type
-//             },
-//             {
-//                 name: '**IP**',
-//                 value: car.Ip
-//             }
-//         );
+        // Создадим блок с информацией
+        const vmEmbed = new MessageEmbed()
+            .setColor('#ED685F')
+            .setTitle(`**Виртуалка #${id}**`)
+            .setTimestamp();
 
-//         // Добавим дополнительную информацию
-//         if (car.Addition)
-//             carEmbed.addField('**Дополнительно**', `${car.Addition}`);
+        // Добавим информацию о виртуалке
+        vmEmbed.addFields(
+            {
+                name: '**Тип**',
+                value: vm.Type
+            },
+            {
+                name: '**IP**',
+                value: vm.Ip
+            }
+        );
 
-//         // Добавим данные пользователей
-//         if (car.Admin)
-//             carEmbed.addField('**Данные администратора**', `Логин: ${car.Admin.Login}\nПароль: ${car.Admin.Password}`);
+        // Добавим дополнительную информацию
+        if (vm.Addition)
+            vmEmbed.addField('**Дополнительно**', `${vm.Addition}`);
 
-//         if (car.User)
-//             carEmbed.addField('**Данные пользователя**', `Логин: ${car.User.Login}\nПароль: ${car.User.Password}`);
+        // Добавим данные пользователей
+        if (vm.Admin)
+            vmEmbed.addField('**Данные администратора**', `Логин: ${vm.Admin.Login}\nПароль: ${vm.Admin.Password}`);
 
-//         // Добавим состояние
-//         if (currentUser.userId)
-//             carEmbed.addField('**Состояние**', `Занята [${currentUser.userName}]`);
-//         else
-//             carEmbed.addField('**Состояние**', 'Свободна');
+        if (vm.User)
+        vmEmbed.addField('**Данные пользователя**', `Логин: ${vm.User.Login}\nПароль: ${vm.User.Password}`);
 
-//         // Отправим на канал
-//         message.channel.send({embed: carEmbed});
-//     }
+        // Добавим состояние
+        if (currentUser.userId)
+            vmEmbed.addField('**Состояние**', `Занята [${currentUser.userName}]`);
+        else
+            vmEmbed.addField('**Состояние**', 'Свободна');
 
-//     @Command('lintake :carId')
-//     private async linTake(message: CommandMessage) {
-//         const { carId } = message.args;
-//         if (!(typeof carId === 'number')) {
-//             Utils.msgReplyAndDelete(message, Consts.Str.COMMAND_BADFORMAT_ARGS);
-//             return;
-//         }
+        // Отправим на канал
+        message.channel.send({ embeds: [vmEmbed] });
+    }
 
-//         // Найдем виртуалку
-//         let car = await this.getLinuxCar(carId);
+    @SimpleCommand("vmtake", { 
+        description: "Занять виртуальную машину"
+    })
+    async vmTake(
+        @SimpleCommandOption("id", { type: "INTEGER" }) id: number,
+        command: SimpleCommandMessage
+    ) {
+        let message = command.message;
 
-//         // Проверим, есть ли такая виртуалка
-//         if (car === null) {
-//             Utils.msgReplyAndDelete(message, Consts.Str.LININFO_BAD_ID);
-//             return;
-//         }
+        if (!id)
+            return Utils.msgReplyAndDelete(message, Str.COMMAND_NOTENOUGH_ARGS);
 
-//         // Получим текущего пользователя
-//         const currentUser = await this.getLinuxCurrentUser(carId);
+        // Найдем виртуалку
+        let vm = await this.getVM(id);
 
-//         // Если виртуалка уже занята, то сообщим
-//         if (currentUser.userId) {
-//             Utils.msgReplyAndDelete(message, `${Consts.Str.LINCAR_BUSY} [${currentUser.userName}]`);
-//             return;
-//         }
+        // Проверим, есть ли такая виртуалка
+        if (!vm)
+            return Utils.msgReplyAndDelete(message, Str.LININFO_BAD_ID);
+
+        // Получим текущего пользователя
+        const currentUser = await this.getVMCurrentUser(id);
+
+        // Если виртуалка уже занята, то сообщим
+        if (currentUser.userId)
+            return Utils.msgReplyAndDelete(message, `${Str.LINCAR_BUSY} [${currentUser.userName}]`);
         
-//         // Получим данные автора
-//         const member = message.guild.member(message.author);
-//         const memberId = member ? member.id : '-1';
-//         const memberName = member ? member.displayName : Consts.Str.BAD_MEMBERNAME;
+        // Получим данные автора
+        message.guild.members.fetch(message.author)
+            .then(async member => {
+                const memberId = member ? member.id : "-1";
+                const memberName = member ? member.displayName : Str.BAD_MEMBERNAME;
 
-//         // Займем виртуалку
-//         await this.updateLinuxCurrentUser(carId, memberId, memberName);
+                // Займем виртуалку
+                await this.updateVMCurrentUser(id, memberId, memberName);
 
-//         // Отправим на канал
-//         message.channel.send(`**${memberName}** занял(а) виртуалку #${carId}`);
-//     }
+                // Отправим на канал
+                message.channel.send(`**${memberName}** занял(а) виртуалку #${id}`);
+            })
+            .catch(err => { console.error(err) });
+    }
 
-//     @Command('linfree :carId')
-//     private async linFree(message: CommandMessage) {
-//         const { carId } = message.args;
-//         if (!(typeof carId === 'number')) {
-//             Utils.msgReplyAndDelete(message, Consts.Str.COMMAND_BADFORMAT_ARGS);
-//             return;
-//         }
+    @SimpleCommand("vmfree", { 
+        description: "Освободить виртуальную машину"
+    })
+    async vmFree(
+        @SimpleCommandOption("id", { type: "INTEGER" }) id: number,
+        command: SimpleCommandMessage
+    ) {
+        const message = command.message;
 
-//         // Найдем виртуалку
-//         let car = await this.getLinuxCar(carId);
+        if (!id)
+            return Utils.msgReplyAndDelete(message, Str.COMMAND_NOTENOUGH_ARGS);
 
-//         // Проверим, есть ли такая виртуалка
-//         if (car === null) {
-//             Utils.msgReplyAndDelete(message, Consts.Str.LININFO_BAD_ID);
-//             return;
-//         }
+        // Найдем виртуалку
+        let vm = await this.getVM(id);
 
-//         // Получим текущего пользователя
-//         const currentUser = await this.getLinuxCurrentUser(carId);
+        // Проверим, есть ли такая виртуалка
+        if (!vm)
+            return Utils.msgReplyAndDelete(message, Str.LININFO_BAD_ID);
 
-//         // Если виртуалка уже свободна, то сообщим
-//         if (!currentUser.userId)
-//             return Utils.msgReplyAndDelete(message, Consts.Str.LINCAR_FREE);
+        // Получим текущего пользователя
+        const currentUser = await this.getVMCurrentUser(id);
 
-//         // Получим данные автора
-//         const member = message.guild.member(message.author);
-//         const memberId = member ? member.id : -1;
-//         const memberName = member ? member.displayName : Consts.Str.BAD_MEMBERNAME;
+        // Если виртуалка уже свободна, то сообщим
+        if (!currentUser.userId)
+            return Utils.msgReplyAndDelete(message, Str.LINCAR_FREE);
 
-//         // Проверим, может ли автор освободить виртуалку
-//         if (currentUser.userId != memberId)
-//             return Utils.msgReplyAndDelete(message, Consts.Str.LINCAR_FREE_BADUSER);
+        // Получим данные автора
+        message.guild.members.fetch(message.author)
+            .then(async member => {
+                const memberId = member ? member.id : "-1";
+                const memberName = member ? member.displayName : Str.BAD_MEMBERNAME;
 
-//         // Освободим виртуалку
-//         await this.updateLinuxCurrentUser(carId, "", "");
+                // Проверим, может ли автор освободить виртуалку
+                if (currentUser.userId != memberId)
+                    return Utils.msgReplyAndDelete(message, Str.LINCAR_FREE_BADUSER);
 
-//         // Отправим на канал
-//         message.channel.send(`**${memberName}** освободил(а) виртуалку #${carId}`);
-//     }
+                // Освободим виртуалку
+                await this.updateVMCurrentUser(id, "", "");
+
+                // Отправим на канал
+                message.channel.send(`**${memberName}** освободил(а) виртуалку #${id}`);
+            })
+            .catch(err => { console.error(err) });
+    }
 
 
-//     // Получить всех текущих пользователей виртуалок из Google-таблицы
-//     private async getLinuxAllUsers(): Promise<LinuxUser[]> {
-//         // Получим нужный лист
-//         const sheet = await Utils.getGoogleSheet(linStatusSheetIndex);
+    // Получить всех текущих пользователей виртуалок из Google-таблицы
+    private async getVMAllUsers(): Promise<VMUser[]> {
+        // Получим нужный лист
+        const sheet = await Utils.getGoogleSheet(VMStatusSheetIndex);
 
-//         // Получим все строки
-//         const rows = await sheet.getRows();
+        // Получим все строки
+        const rows = await sheet.getRows();
 
-//         let allUsers: LinuxUser[] = [];
-//         rows.forEach(row => {
-//             allUsers.push({
-//                 userId: row.UserID,
-//                 userName: row.UserName
-//             });
-//         });
+        let allUsers: VMUser[] = [];
+        rows.forEach(row => {
+            allUsers.push({
+                userId: row.UserID,
+                userName: row.UserName
+            });
+        });
 
-//         return allUsers;
-//     }
+        return allUsers;
+    }
     
-//     // Получить текущего пользователя виртуалки из Google-таблицы
-//     private async getLinuxCurrentUser(carId: number): Promise<LinuxUser> {
-//         // Получим всех пользователей
-//         const allUsers = await this.getLinuxAllUsers();
+    // Получить текущего пользователя виртуалки из Google-таблицы
+    private async getVMCurrentUser(vmId: number): Promise<VMUser> {
+        // Получим всех пользователей
+        const allUsers = await this.getVMAllUsers();
 
-//         return allUsers[carId - 1];
-//     }
+        return allUsers[vmId - 1];
+    }
 
-//     // Обновить информацию о текущем пользователе виртуалки в Google-таблице
-//     private async updateLinuxCurrentUser(carId: number, userId: string, userName: string) {
-//         // Получим нужный лист
-//         const sheet = await Utils.getGoogleSheet(linStatusSheetIndex);
+    // Обновить информацию о текущем пользователе виртуалки в Google-таблице
+    private async updateVMCurrentUser(vmId: number, userId: string, userName: string) {
+        // Получим нужный лист
+        const sheet = await Utils.getGoogleSheet(VMStatusSheetIndex);
 
-//         // Получим все строки
-//         const rows = await sheet.getRows();
+        // Получим все строки
+        const rows = await sheet.getRows();
 
-//         // Изменим необходимую строку
-//         rows[carId - 1].UserId = userId;
-//         rows[carId - 1].UserName = userName;
-//         await rows[carId - 1].save();
-//     }
+        // Изменим необходимую строку
+        rows[vmId - 1].UserID = userId;
+        rows[vmId - 1].UserName = userName;
+        await rows[vmId - 1].save();
+    }
 
-//     // Найти виртуалку по айдишнику
-//     private async getLinuxCar(carId): Promise<LinuxCar> {
-//         // Получим данные из файла
-//         let LinuxCars = JSON.parse(fs.readFileSync(LinuxCarsFile).toString());
+    // Найти виртуалку по айдишнику
+    private async getVM(vmId: number): Promise<VM> {
+        // Получим данные из файла
+        let VMs = JSON.parse(fs.readFileSync(VMFile).toString());
 
-//         // Найдем виртуалку
-//         for (var key in LinuxCars) {
-//             if (LinuxCars.hasOwnProperty(key)) {
-//                 let car = LinuxCars[key];
-//                 if (car.ID == carId)
-//                     return <LinuxCar>car;
-//             }
-//         }
+        // Найдем виртуалку
+        for (var key in VMs) {
+            if (VMs.hasOwnProperty(key)) {
+                let vm = VMs[key];
+                if (vm.ID == vmId)
+                    return <VM>vm;
+            }
+        }
 
-//         return null;
-//     }
-// }
+        return null;
+    }
+}

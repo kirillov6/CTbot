@@ -1,15 +1,11 @@
-import {
-    MessageEmbed,
-    MessageAttachment
-} from "discord.js"
-
 import { 
     Discord,
     SimpleCommand,
     SimpleCommandMessage,
     SimpleCommandOption
- } from "discordx";
+} from "discordx";
 
+import { MessageEmbed } from "discord.js"
 import fs = require('fs');
 import { Str, File } from '../utils/consts';
 import { Utils } from '../utils/utils';

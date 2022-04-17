@@ -1,6 +1,6 @@
 {
 	"prefix": "!",
-	"linStatusSheetIndex": 0,
+	"VMStatusSheetIndex": 0,
 	"azureUrl": "https://tfsprod.fsight.ru/Foresight",
 	"azureProject": "AP"
 }
