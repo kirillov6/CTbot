@@ -3,11 +3,12 @@ import {
     SimpleCommand,
     SimpleCommandMessage
  } from "discordx";
- import { MessageEmbed } from 'discord.js'
- import { Str } from "../utils/consts";
- import { Utils } from "../utils/utils";
 
- const { prefix } = require('../config.json');
+import { MessageEmbed } from 'discord.js'
+import { Str } from "../utils/consts";
+import { Utils } from "../utils/utils";
+
+const { prefix } = require('../config.json');
 
 @Discord()
 export abstract class Poll {

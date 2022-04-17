@@ -6,7 +6,7 @@
   "main": "bot.js",
   "scripts": {
     "clean": "rm -Rf ./_build",
-    "build": "npm run clean && tsc && cp ./config.json ./_build/config.json",
+    "build": "npm run clean && tsc && cp ./config.json ./_build/config.json && cp -r ./res ./_build/res",
     "start": "npm run build && node ./_build/bot.js"
   },
   "keywords": [],
