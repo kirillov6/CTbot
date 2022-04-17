@@ -32,7 +32,7 @@ export abstract class BaseEvents {
         client: Client
     ) {
         const command = message.content.split(/ +/)[0].substring(prefix.length);
-        if (client.simpleCommandByName.find((val) => val.name === command)) {
+        if (client.simpleCommandByName.find(val => val.name === command)) {
             try {
                 client.executeCommand(message);
                 setTimeout(() => message.delete(), 6000);

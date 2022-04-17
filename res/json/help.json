@@ -1,0 +1,35 @@
+{
+    "poll": {
+        "Format": "poll \"Заголовок\" [\"Вариант ответа 1;Вариант ответа 2;...\"]",
+        "UseCases": [
+            "poll \"Успешный спринт?\"",
+            "poll \"Ваш любимый фрукт?\" \"Яблоко;Апельсин;Киви\""
+        ]
+    },
+    "rules": {
+        "Format": "rules [{dev/vis}]",
+        "UseCases": [
+            "rules",
+            "rules dev",
+            "rules vis"
+        ]
+    },
+    "vminfo": {
+        "Format": "vminfo {Номер виртуальной машины}",
+        "UseCases": [
+            "vminfo 1"
+        ]
+    },
+    "vmtake": {
+        "Format": "vmtake {Номер виртуальной машины}",
+        "UseCases": [
+            "vmtake 1"
+        ]
+    },
+    "vmfree": {
+        "Format": "vmfree {Номер виртуальной машины}",
+        "UseCases": [
+            "vmfree 1"
+        ]
+    }
+}
