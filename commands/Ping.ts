@@ -7,7 +7,9 @@ import {
 
 @Discord()
 export abstract class Ping {
-    @SimpleCommand('ping')
+    @SimpleCommand('ping', { 
+        description: "Отвечает Pong" 
+    })
     ping(command: SimpleCommandMessage) {
         command.message.reply('Pong');
     }

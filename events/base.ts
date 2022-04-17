@@ -3,10 +3,15 @@ import {
     On,
     Once,
     ArgsOf,
-    Client
+    Client,
+    Guard
 } from "discordx";
-import { ActivityTypes } from 'discord.js/typings/enums';
-import { Str } from '../utils/consts';
+import { ActivityTypes } from "discord.js/typings/enums";
+import { Str } from "../utils/consts";
+import { Utils } from "../utils/utils";
+import { Prefix } from "../guards/prefix";
+
+const { prefix } = require('../config.json');
 
 @Discord()
 export abstract class BaseEvents {
@@ -20,17 +25,23 @@ export abstract class BaseEvents {
     }
 
     @On("messageCreate")
+    @Guard(Prefix(prefix))
     onMessageCreate(
         [message]: ArgsOf<"messageCreate">,
         client: Client
     ) {
-        const msg = message.content.substring(1);
-        if (client.simpleCommandByName.find((val) => val.name === msg))
-            client.executeCommand(message);
+        const command = message.content.split(/ +/)[0].substring(prefix.length);
+        if (client.simpleCommandByName.find((val) => val.name === command)) {
+            try {
+                client.executeCommand(message);
+                setTimeout(() => message.delete(), 6000);
+            }
+            catch (error) {
+                console.error(error);
+                Utils.msgReplyAndDelete(message, Str.COMMAND_ERROR, 6, true);
+            }
+        }
         else
-            message.reply(Str.COMMAND_NOT_SUPPORT)
-                .then(reply => { setTimeout(() => reply.delete(), 6000)}) // Удалим ответ
-                .then(() => { setTimeout(() => message.delete(), 6000)}) // Удалим команду
-                .catch(error => { console.log(error); });
+            Utils.msgReplyAndDelete(message, Str.COMMAND_NOT_SUPPORT, 6, true);
     }
 }
