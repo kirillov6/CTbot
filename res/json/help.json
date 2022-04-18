@@ -1,0 +1,55 @@
+{
+    "poll": {
+        "Format": "poll \"Заголовок\" [\"Вариант ответа 1;Вариант ответа 2;...\"]",
+        "UseCases": [
+            "poll \"Успешный спринт?\"",
+            "poll \"Ваш любимый фрукт?\" \"Яблоко;Апельсин;Киви\""
+        ]
+    },
+    "rules": {
+        "Format": "rules [{dev/vis}]",
+        "UseCases": [
+            "rules",
+            "rules dev",
+            "rules vis"
+        ]
+    },
+    "vminfo": {
+        "Format": "vminfo {Номер виртуальной машины}",
+        "UseCases": [
+            "vminfo 1"
+        ]
+    },
+    "vmtake": {
+        "Format": "vmtake {Номер виртуальной машины}",
+        "UseCases": [
+            "vmtake 1"
+        ]
+    },
+    "vmfree": {
+        "Format": "vmfree {Номер виртуальной машины}",
+        "UseCases": [
+            "vmfree 1"
+        ]
+    },
+    "play": {
+        "Format": "play {Ссылка на youtube-видео/слово для поиска}",
+        "UseCases": [
+            "play https://youtu.be/BrnDlRmW5hs",
+            "play japan"
+        ]
+    },
+    "playlist": {
+        "Format": "playlist {Ссылка на youtube-плейлист/слово для поиска}",
+        "UseCases": [
+            "playlist https://youtube.com/playlist?list=PLcboWyJKQ12Uon3hGa46xRJ6wV3igLL47",
+            "playlist japan"
+        ]
+    },
+    "volume": {
+        "Format": "volume {Число от 0 до 200}",
+        "UseCases": [
+            "volume 20"
+        ]
+    }
+}

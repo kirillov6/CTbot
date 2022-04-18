@@ -1,5 +1,5 @@
 {
-    "Car1": {
+    "VM1": {
         "ID": "1",
         "Type": "Astra 1.6",
         "Ip": "10.9.0.202",
@@ -8,7 +8,7 @@
             "Password": "Qwerty123456"
         }
     },
-    "Car2": {
+    "VM2": {
         "ID": "2",
         "Type": "Astra 1.6",
         "Ip": "10.9.0.152",
@@ -17,7 +17,7 @@
             "Password": "Qwerty123456"
         }
     },
-    "Car3": {
+    "VM3": {
         "ID": "3",
         "Type": "Astra 1.6",
         "Addition": "Redis + Apache",
@@ -27,7 +27,7 @@
             "Password": "Qwerty123456"
         }
     },
-    "Car4": {
+    "VM4": {
         "ID": "4",
         "Type": "Ubuntu",
         "Ip": "10.0.72.55",
@@ -36,7 +36,7 @@
             "Password": "123456"
         }
     },
-    "Car5": {
+    "VM5": {
         "ID": "5",
         "Type": "Astra 1.6",
         "Ip": "10.9.0.252",
@@ -45,7 +45,7 @@
             "Password": "Qwerty123456"
         }
     },
-    "Car6": {
+    "VM6": {
         "ID": "6",
         "Type": "CentOS7",
         "Ip": "10.9.1.78",
@@ -54,7 +54,7 @@
             "Password": "Qwerty123456"
         }
     },
-    "Car7": {
+    "VM7": {
         "ID": "7",
         "Type": "Astra 1.6",
         "Addition": "Redis + Apache + Proxy + ALD",
@@ -68,7 +68,7 @@
             "Password": "123456"
         }
     },
-    "Car8": {
+    "VM8": {
         "ID": "8",
         "Type": "Windows",
         "Ip": "10.9.1.62",
@@ -77,7 +77,7 @@
             "Password": "Qwerty1"
         }
     },
-    "Car9": {
+    "VM9": {
         "ID": "9",
         "Type": "Astra 1.7",
         "Ip": "10.9.0.121",
