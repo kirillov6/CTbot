@@ -31,5 +31,25 @@
         "UseCases": [
             "vmfree 1"
         ]
+    },
+    "play": {
+        "Format": "play {Ссылка на youtube-видео/слово для поиска}",
+        "UseCases": [
+            "play https://youtu.be/BrnDlRmW5hs",
+            "play japan"
+        ]
+    },
+    "playlist": {
+        "Format": "playlist {Ссылка на youtube-плейлист/слово для поиска}",
+        "UseCases": [
+            "playlist https://youtube.com/playlist?list=PLcboWyJKQ12Uon3hGa46xRJ6wV3igLL47",
+            "playlist japan"
+        ]
+    },
+    "volume": {
+        "Format": "volume {Число от 0 до 200}",
+        "UseCases": [
+            "volume 20"
+        ]
     }
 }

@@ -37,6 +37,8 @@ interface VM {
 
 @Discord()
 export abstract class VirtualMachines {
+    description = "Работа с виртуальными машинами";
+
     @SimpleCommand("vmstatus", { 
         description: "Состояние виртуальных машин"
     })

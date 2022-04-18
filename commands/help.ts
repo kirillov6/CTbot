@@ -27,7 +27,7 @@ export abstract class Help {
     ) {
         const simpleCommands = client.simpleCommands;
         
-        if (cmd){
+        if (cmd) {
             const simpleCommand = simpleCommands.find(val => val.name === cmd);
             if (!simpleCommand)
                 return Utils.msgReplyAndDelete(command.message, Str.COMMAND_NOT_SUPPORT);
@@ -49,8 +49,7 @@ export abstract class Help {
             commandInfo += `Формат: ${prefix}${simpleCommand.name}\nПример использования: ${prefix}${simpleCommand.name}`;
 
             command.message.channel.send(commandInfo);
-        }
-        else {
+        } else {
             let commandsInfo = "Список доступных команд:\n";
 
             simpleCommands.forEach(sc => {
