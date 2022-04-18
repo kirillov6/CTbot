@@ -10,7 +10,6 @@ import {
   Discord,
   On,
   SimpleCommand,
-  SlashGroup,
   SimpleCommandOption,
   ArgsOf,
   SimpleCommandMessage
@@ -74,11 +73,11 @@ export abstract class Music {
         const queue = this.player.getQueue(interaction.guild, interaction.channel);
 
         if (interaction.member.voice.channelId !== queue.voiceChannelId) {
-            if (interaction instanceof CommandInteraction) {
+            if (interaction instanceof Message) {
+                Utils.msgReplyAndDelete(interaction, Str.MUSIC_NOTINVOICE);
+            } else {
                 interaction.reply(Str.MUSIC_NOTINVOICE);
                 setTimeout(() => interaction.deleteReply(), 6000);
-            } else {
-                Utils.msgReplyAndDelete(interaction, Str.MUSIC_NOTINVOICE);
             }
             return;
         }
@@ -192,11 +191,11 @@ export abstract class Music {
             return;
 
         if (!(interaction.member instanceof GuildMember) || !interaction.member.voice.channel) {
-            if (interaction instanceof CommandInteraction) {
+            if (interaction instanceof Message) {
+                Utils.msgReplyAndDelete(interaction, Str.MUSIC_NOTINVOICE);
+            } else {
                 interaction.reply(Str.MUSIC_NOTINVOICE);
                 setTimeout(() => interaction.deleteReply(), 6000);
-            } else {
-                Utils.msgReplyAndDelete(interaction, Str.MUSIC_NOTINVOICE);
             }
             return;
         }
