@@ -21,7 +21,7 @@ export const NotBot: GuardFunction<
     | SelectMenuInteraction
     | ButtonInteraction
     | SimpleCommandMessage
-> = async (arg, client, next) => {
+> = async (arg, _, next) => {
     const argObj = arg instanceof Array ? arg[0] : arg;
     const user =
     argObj instanceof CommandInteraction

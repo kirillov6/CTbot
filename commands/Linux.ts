@@ -93,7 +93,7 @@ export abstract class VirtualMachines {
 
         // Проверим, есть ли такая виртуалка
         if (!vm)
-            return Utils.msgReplyAndDelete(message, Str.LININFO_BAD_ID);
+            return Utils.msgReplyAndDelete(message, Str.VMINFO_BAD_ID);
 
         // Получим текущего пользователя
         const currentUser = await this.getVMCurrentUser(id);
@@ -154,14 +154,14 @@ export abstract class VirtualMachines {
 
         // Проверим, есть ли такая виртуалка
         if (!vm)
-            return Utils.msgReplyAndDelete(message, Str.LININFO_BAD_ID);
+            return Utils.msgReplyAndDelete(message, Str.VMINFO_BAD_ID);
 
         // Получим текущего пользователя
         const currentUser = await this.getVMCurrentUser(id);
 
         // Если виртуалка уже занята, то сообщим
         if (currentUser.userId)
-            return Utils.msgReplyAndDelete(message, `${Str.LINCAR_BUSY} [${currentUser.userName}]`);
+            return Utils.msgReplyAndDelete(message, `${Str.VM_BUSY} [${currentUser.userName}]`);
         
         // Получим данные автора
         message.guild.members.fetch(message.author)
@@ -195,14 +195,14 @@ export abstract class VirtualMachines {
 
         // Проверим, есть ли такая виртуалка
         if (!vm)
-            return Utils.msgReplyAndDelete(message, Str.LININFO_BAD_ID);
+            return Utils.msgReplyAndDelete(message, Str.VMINFO_BAD_ID);
 
         // Получим текущего пользователя
         const currentUser = await this.getVMCurrentUser(id);
 
         // Если виртуалка уже свободна, то сообщим
         if (!currentUser.userId)
-            return Utils.msgReplyAndDelete(message, Str.LINCAR_FREE);
+            return Utils.msgReplyAndDelete(message, Str.VM_FREE);
 
         // Получим данные автора
         message.guild.members.fetch(message.author)
@@ -212,7 +212,7 @@ export abstract class VirtualMachines {
 
                 // Проверим, может ли автор освободить виртуалку
                 if (currentUser.userId != memberId)
-                    return Utils.msgReplyAndDelete(message, Str.LINCAR_FREE_BADUSER);
+                    return Utils.msgReplyAndDelete(message, Str.VM_FREE_BADUSER);
 
                 // Освободим виртуалку
                 await this.updateVMCurrentUser(id, "", "");

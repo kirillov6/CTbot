@@ -25,6 +25,19 @@ export abstract class BaseEvents {
         console.log("Bot started");
     }
 
+    @On("interactionCreate")
+    onInteractionCreate(
+        [interaction]: ArgsOf<"interactionCreate">,
+        client: Client
+    ) {
+        try {
+            client.executeInteraction(interaction);
+        }
+        catch (error) {
+            console.error(error);
+        }
+    }
+
     @On("messageCreate")
     @Guard(Prefix(prefix))
     onMessageCreate(
