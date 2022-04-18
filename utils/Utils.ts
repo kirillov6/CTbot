@@ -1,8 +1,8 @@
 // Вспомогательные телодвижения
 
-import { Message } from 'discord.js';
-import * as GoogleSheet from 'google-spreadsheet';
-import * as AzDev from 'azure-devops-node-api';
+import * as GoogleSheet from "google-spreadsheet";
+import * as AzDev from "azure-devops-node-api";
+import { Message } from "discord.js";
 
 export class Utils {
     // Ответить и удалить ответ вместе с сообщением
