@@ -1,7 +1,7 @@
 {
     "VM1": {
         "ID": "1",
-        "Type": "Astra",
+        "Type": "Astra 1.6",
         "Ip": "10.9.0.202",
         "Admin": {
             "Login": "prognoz",
@@ -10,7 +10,7 @@
     },
     "VM2": {
         "ID": "2",
-        "Type": "Astra",
+        "Type": "Astra 1.6",
         "Ip": "10.9.0.152",
         "Admin": {
             "Login": "prognoz",
@@ -19,7 +19,7 @@
     },
     "VM3": {
         "ID": "3",
-        "Type": "Astra",
+        "Type": "Astra 1.6",
         "Addition": "Redis + Apache",
         "Ip": "10.9.1.22",
         "Admin": {
@@ -38,7 +38,7 @@
     },
     "VM5": {
         "ID": "5",
-        "Type": "Astra",
+        "Type": "Astra 1.6",
         "Ip": "10.9.0.252",
         "Admin": {
             "Login": "prognoz",
@@ -56,7 +56,7 @@
     },
     "VM7": {
         "ID": "7",
-        "Type": "Astra",
+        "Type": "Astra 1.6",
         "Addition": "Redis + Apache + Proxy + ALD",
         "Ip": "10.30.220.39",
         "Admin": {
@@ -75,6 +75,19 @@
         "Admin": {
             "Login": "User",
             "Password": "Qwerty1"
+        }
+    },
+    "Car9": {
+        "ID": "9",
+        "Type": "Astra 1.7",
+        "Ip": "10.9.0.121",
+        "Admin": {
+            "Login": "root",
+            "Password": "root"
+        },
+        "User": {
+            "Login": "user",
+            "Password": "user"
         }
     }
 }
