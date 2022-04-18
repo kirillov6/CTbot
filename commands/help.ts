@@ -39,7 +39,7 @@ export abstract class Help {
                 if (commandsHelp.hasOwnProperty(key) && key == simpleCommand.name) {
                     let cmdHelp = commandsHelp[key];
                     commandInfo += `Формат: ${prefix}${cmdHelp.Format}\nПримеры использования:\n`;
-                    cmdHelp.UseCases.forEach(uc => commandInfo += `\t${prefix}${uc}\n`);
+                    cmdHelp.UseCases.forEach(uc => commandInfo += `\t* ${prefix}${uc}\n`);
 
                     command.message.channel.send(commandInfo);
                     return;
