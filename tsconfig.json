@@ -9,7 +9,7 @@
       "outDir": "_build",
       "allowJs": true,
       "checkJs": true,
-      "noImplicitAny": true,
+      "noImplicitAny": false,
       "emitDecoratorMetadata": true,
       "experimentalDecorators": true,
       "importHelpers": true,
