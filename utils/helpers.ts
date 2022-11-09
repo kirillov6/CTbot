@@ -4,7 +4,7 @@ import * as GoogleSheet from "google-spreadsheet";
 import * as AzDev from "azure-devops-node-api";
 import { Message } from "discord.js";
 
-export class Utils {
+export class Helpers {
     // Ответить и удалить ответ вместе с сообщением
     static msgReplyAndDelete(message: Message, reply: string, time = 6, withMessage = false) {
         message.reply(reply)

@@ -7,7 +7,7 @@ import {
 } from 'discordx';
 
 import { Str } from "../utils/consts";
-import { Utils } from "../utils/utils";
+import { Helpers } from "../utils/helpers";
 import fs = require('fs');
 
 const { prefix } = require('../config.json');
@@ -30,7 +30,7 @@ export abstract class Help {
         if (cmd) {
             const simpleCommand = simpleCommands.find(val => val.name === cmd);
             if (!simpleCommand)
-                return Utils.msgReplyAndDelete(command.message, Str.COMMAND_NOT_SUPPORT);
+                return Helpers.msgReplyAndDelete(command.message, Str.COMMAND_NOT_SUPPORT);
             
             let commandInfo = `**${prefix}${simpleCommand.name}** - ${simpleCommand.description}\n`;
 

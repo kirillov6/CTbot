@@ -21,7 +21,7 @@ import {
 } from "./objects.js";
 
 import { Str } from '../../utils/consts';
-import { Utils } from '../../utils/utils';
+import { Helpers } from '../../utils/helpers';
 
 
 @Discord()
@@ -74,7 +74,7 @@ export abstract class Music {
 
         if (interaction.member.voice.channelId !== queue.voiceChannelId) {
             if (interaction instanceof Message) {
-                Utils.msgReplyAndDelete(interaction, Str.MUSIC_NOTINVOICE);
+                Helpers.msgReplyAndDelete(interaction, Str.MUSIC_NOTINVOICE);
             } else {
                 interaction.reply(Str.MUSIC_NOTINVOICE);
                 setTimeout(() => interaction.deleteReply(), 6000);
@@ -192,7 +192,7 @@ export abstract class Music {
 
         if (!(interaction.member instanceof GuildMember) || !interaction.member.voice.channel) {
             if (interaction instanceof Message) {
-                Utils.msgReplyAndDelete(interaction, Str.MUSIC_NOTINVOICE);
+                Helpers.msgReplyAndDelete(interaction, Str.MUSIC_NOTINVOICE);
             } else {
                 interaction.reply(Str.MUSIC_NOTINVOICE);
                 setTimeout(() => interaction.deleteReply(), 6000);
@@ -229,7 +229,7 @@ export abstract class Music {
         const song = await queue.play(songName, { user: message.author });
 
         if (!song) {
-            Utils.msgReplyAndDelete(message, Str.MUSIC_SONGNOTFOUND);
+            Helpers.msgReplyAndDelete(message, Str.MUSIC_SONGNOTFOUND);
         } else {
             const embed = new MessageEmbed()
                 .setTitle("Очередь")
@@ -254,7 +254,7 @@ export abstract class Music {
             
         const songs = await queue.playlist(playlistName, { user: message.author });
         if (!songs) {
-            Utils.msgReplyAndDelete(message, Str.MUSIC_PLAYLISTNOTFOUND);
+            Helpers.msgReplyAndDelete(message, Str.MUSIC_PLAYLISTNOTFOUND);
         } else {
             const embed = new MessageEmbed()
                 .setTitle("Очередь")
@@ -275,7 +275,7 @@ export abstract class Music {
             return;
 
         queue.skip();
-        Utils.msgReplyAndDelete(message, Str.MUSIC_SONGSKIPPED);
+        Helpers.msgReplyAndDelete(message, Str.MUSIC_SONGSKIPPED);
     }
 
     @SimpleCommand("mix", { 
@@ -289,7 +289,7 @@ export abstract class Music {
             return;
 
         queue.mix();
-        Utils.msgReplyAndDelete(message, Str.MUSIC_QUEUEMIXED);
+        Helpers.msgReplyAndDelete(message, Str.MUSIC_QUEUEMIXED);
     }
 
     @SimpleCommand("pause", { 
@@ -303,11 +303,11 @@ export abstract class Music {
             return;
 
         if (queue.isPause)
-            return Utils.msgReplyAndDelete(message, Str.MUSIC_ALREADYPAUSED);
+            return Helpers.msgReplyAndDelete(message, Str.MUSIC_ALREADYPAUSED);
 
         queue.pause();
         queue.setVolume(queue.volume - 0.1);
-        Utils.msgReplyAndDelete(message, Str.MUSIC_PAUSED);
+        Helpers.msgReplyAndDelete(message, Str.MUSIC_PAUSED);
     }
 
     @SimpleCommand("resume", { 
@@ -321,10 +321,10 @@ export abstract class Music {
             return;
 
         if (queue.isPlaying)
-            return Utils.msgReplyAndDelete(message, Str.MUSIC_ALREADYRESUME);
+            return Helpers.msgReplyAndDelete(message, Str.MUSIC_ALREADYRESUME);
 
         queue.resume();
-        Utils.msgReplyAndDelete(message, Str.MUSIC_RESUME);
+        Helpers.msgReplyAndDelete(message, Str.MUSIC_RESUME);
     }
 
     @SimpleCommand("stop", { 
@@ -338,7 +338,7 @@ export abstract class Music {
             return;
 
         queue.leave();
-        Utils.msgReplyAndDelete(message, Str.MUSIC_STOP);
+        Helpers.msgReplyAndDelete(message, Str.MUSIC_STOP);
     }
 
     @SimpleCommand("volume", { 
@@ -351,13 +351,13 @@ export abstract class Music {
         const message = command.message;
 
         if (!vol || vol < 0 || vol > 200)
-            return Utils.msgReplyAndDelete(message, Str.MUSIC_INCORRECTVOLUME);
+            return Helpers.msgReplyAndDelete(message, Str.MUSIC_INCORRECTVOLUME);
 
         const queue = this.validateInteraction(message);
         if (!queue)
             return;
 
         queue.setVolume(vol);
-        Utils.msgReplyAndDelete(message, Str.MUSIC_VOLUMECHANGED);
+        Helpers.msgReplyAndDelete(message, Str.MUSIC_VOLUMECHANGED);
     }
 }

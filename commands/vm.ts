@@ -9,7 +9,7 @@ import {
 import { MessageEmbed } from "discord.js"
 import fs = require('fs');
 import { Str } from '../utils/consts';
-import { Utils } from '../utils/utils';
+import { Helpers } from '../utils/helpers';
 
 const VMFile = `${__dirname}/../res/json/virtualmachines.json`;
 const { VMStatusSheetIndex } = require('../config.json');
@@ -88,14 +88,14 @@ export abstract class VirtualMachines {
         const message = command.message;
 
         if (!id)
-            return Utils.msgReplyAndDelete(message, Str.COMMAND_NOTENOUGH_ARGS);
+            return Helpers.msgReplyAndDelete(message, Str.COMMAND_NOTENOUGH_ARGS);
 
         // Найдем виртуалку
         let vm = await this.getVM(id);
 
         // Проверим, есть ли такая виртуалка
         if (!vm)
-            return Utils.msgReplyAndDelete(message, Str.VMINFO_BAD_ID);
+            return Helpers.msgReplyAndDelete(message, Str.VMINFO_BAD_ID);
 
         // Получим текущего пользователя
         const currentUser = await this.getVMCurrentUser(id);
@@ -149,21 +149,21 @@ export abstract class VirtualMachines {
         let message = command.message;
 
         if (!id)
-            return Utils.msgReplyAndDelete(message, Str.COMMAND_NOTENOUGH_ARGS);
+            return Helpers.msgReplyAndDelete(message, Str.COMMAND_NOTENOUGH_ARGS);
 
         // Найдем виртуалку
         let vm = await this.getVM(id);
 
         // Проверим, есть ли такая виртуалка
         if (!vm)
-            return Utils.msgReplyAndDelete(message, Str.VMINFO_BAD_ID);
+            return Helpers.msgReplyAndDelete(message, Str.VMINFO_BAD_ID);
 
         // Получим текущего пользователя
         const currentUser = await this.getVMCurrentUser(id);
 
         // Если виртуалка уже занята, то сообщим
         if (currentUser.userId)
-            return Utils.msgReplyAndDelete(message, `${Str.VM_BUSY} [${currentUser.userName}]`);
+            return Helpers.msgReplyAndDelete(message, `${Str.VM_BUSY} [${currentUser.userName}]`);
         
         // Получим данные автора
         message.guild.members.fetch(message.author)
@@ -190,21 +190,21 @@ export abstract class VirtualMachines {
         const message = command.message;
 
         if (!id)
-            return Utils.msgReplyAndDelete(message, Str.COMMAND_NOTENOUGH_ARGS);
+            return Helpers.msgReplyAndDelete(message, Str.COMMAND_NOTENOUGH_ARGS);
 
         // Найдем виртуалку
         let vm = await this.getVM(id);
 
         // Проверим, есть ли такая виртуалка
         if (!vm)
-            return Utils.msgReplyAndDelete(message, Str.VMINFO_BAD_ID);
+            return Helpers.msgReplyAndDelete(message, Str.VMINFO_BAD_ID);
 
         // Получим текущего пользователя
         const currentUser = await this.getVMCurrentUser(id);
 
         // Если виртуалка уже свободна, то сообщим
         if (!currentUser.userId)
-            return Utils.msgReplyAndDelete(message, Str.VM_FREE);
+            return Helpers.msgReplyAndDelete(message, Str.VM_FREE);
 
         // Получим данные автора
         message.guild.members.fetch(message.author)
@@ -214,7 +214,7 @@ export abstract class VirtualMachines {
 
                 // Проверим, может ли автор освободить виртуалку
                 if (currentUser.userId != memberId)
-                    return Utils.msgReplyAndDelete(message, Str.VM_FREE_BADUSER);
+                    return Helpers.msgReplyAndDelete(message, Str.VM_FREE_BADUSER);
 
                 // Освободим виртуалку
                 await this.updateVMCurrentUser(id, "", "");
@@ -229,7 +229,7 @@ export abstract class VirtualMachines {
     // Получить всех текущих пользователей виртуалок из Google-таблицы
     private async getVMAllUsers(): Promise<VMUser[]> {
         // Получим нужный лист
-        const sheet = await Utils.getGoogleSheet(VMStatusSheetIndex);
+        const sheet = await Helpers.getGoogleSheet(VMStatusSheetIndex);
 
         // Получим все строки
         const rows = await sheet.getRows();
@@ -256,7 +256,7 @@ export abstract class VirtualMachines {
     // Обновить информацию о текущем пользователе виртуалки в Google-таблице
     private async updateVMCurrentUser(vmId: number, userId: string, userName: string) {
         // Получим нужный лист
-        const sheet = await Utils.getGoogleSheet(VMStatusSheetIndex);
+        const sheet = await Helpers.getGoogleSheet(VMStatusSheetIndex);
 
         // Получим все строки
         const rows = await sheet.getRows();

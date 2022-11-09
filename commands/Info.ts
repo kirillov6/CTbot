@@ -7,8 +7,8 @@ import {
 
 import { MessageEmbed } from "discord.js"
 import fs = require('fs');
-import { Str, File } from '../utils/consts';
-import { Utils } from '../utils/utils';
+import { Str } from '../utils/consts';
+import { Helpers } from '../utils/helpers';
 
 interface Link {
     Description: string;
@@ -137,7 +137,7 @@ export abstract class Info {
             else if (team == 'vis')
                 filePath = `${cwd}/res/txt/rules_vis.txt`;
             else
-                return Utils.msgReplyAndDelete(message, Str.COMMAND_BADFORMAT_ARGS);
+                return Helpers.msgReplyAndDelete(message, Str.COMMAND_BADFORMAT_ARGS);
         }
         else {
             filePath = `${cwd}/res/txt/rules.txt`;

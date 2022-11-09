@@ -6,7 +6,7 @@ import {
 
 import { MessageEmbed } from 'discord.js'
 import { Str } from "../utils/consts";
-import { Utils } from "../utils/utils";
+import { Helpers } from "../utils/helpers";
 
 const { prefix } = require('../config.json');
 
@@ -21,7 +21,7 @@ export abstract class Poll {
         let args = message.content.slice(prefix.length).match(/"(\\.|[^"\\])*"/g); // Регулярное выражние - берем все подстроки в кавычках
 
         if (!args)
-            return Utils.msgReplyAndDelete(message, Str.COMMAND_NOTENOUGH_ARGS);
+            return Helpers.msgReplyAndDelete(message, Str.COMMAND_NOTENOUGH_ARGS);
 
         // Удаление кавычек из аргументов
         if (args) {
@@ -31,10 +31,10 @@ export abstract class Poll {
         };
 
         if (!args[0].length || (args.length > 1 && !args[1].length))
-            return Utils.msgReplyAndDelete(message, Str.COMMAND_BADFORMAT_ARGS);
+            return Helpers.msgReplyAndDelete(message, Str.COMMAND_BADFORMAT_ARGS);
         
         if (args.length > 2)
-            return Utils.msgReplyAndDelete(message, Str.COMMAND_OVERFLOW_ARGS);
+            return Helpers.msgReplyAndDelete(message, Str.COMMAND_OVERFLOW_ARGS);
 
         const pollHeading = `${Str.POLL_EMOJI}  **${args[0]}**`;
         
@@ -60,7 +60,7 @@ export abstract class Poll {
 
             // Если все варианты ответа были пустые, то сообщим
             if (!answerslist.length)
-                return Utils.msgReplyAndDelete(message, Str.POLL_EMPTY_ANSWERS);
+                return Helpers.msgReplyAndDelete(message, Str.POLL_EMPTY_ANSWERS);
 
             // Получим необходимое количество рандомных эмоджи
             const randomEmojis = GetRandomEmojis(answerslist.length);

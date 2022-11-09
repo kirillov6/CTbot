@@ -9,7 +9,7 @@ import {
 
 import { ActivityTypes } from "discord.js/typings/enums";
 import { Str } from "../utils/consts";
-import { Utils } from "../utils/utils";
+import { Helpers } from "../utils/helpers";
 import { Prefix } from "../guards/prefix";
 
 const { prefix } = require('../config.json');
@@ -52,10 +52,10 @@ export abstract class BaseEvents {
             }
             catch (error) {
                 console.error(error);
-                Utils.msgReplyAndDelete(message, Str.COMMAND_ERROR, 6, true);
+                Helpers.msgReplyAndDelete(message, Str.COMMAND_ERROR, 6, true);
             }
         }
         else
-            Utils.msgReplyAndDelete(message, Str.COMMAND_NOT_SUPPORT, 6, true);
+        Helpers.msgReplyAndDelete(message, Str.COMMAND_NOT_SUPPORT, 6, true);
     }
 }
