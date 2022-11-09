@@ -1,20 +1,20 @@
 {
     "VM1": {
         "ID": "1",
-        "Type": "Astra 1.6",
-        "Ip": "10.9.0.202",
+        "Type": "Astra 1.7",
+        "Ip": "10.9.1.210",
         "Admin": {
-            "Login": "prognoz",
-            "Password": "Qwerty123456"
+            "Login": "user",
+            "Password": "user"
         }
     },
     "VM2": {
         "ID": "2",
-        "Type": "Astra 1.6",
-        "Ip": "10.9.0.152",
+        "Type": "Astra 1.7",
+        "Ip": "10.9.2.16",
         "Admin": {
-            "Login": "prognoz",
-            "Password": "Qwerty123456"
+            "Login": "user",
+            "Password": "user"
         }
     },
     "VM3": {
@@ -29,20 +29,26 @@
     },
     "VM4": {
         "ID": "4",
-        "Type": "Ubuntu",
-        "Ip": "10.0.72.55",
+        "Type": "Astra 1.6",
+        "Addition": "Redis + Apache + Proxy + ALD",
+        "Ip": "10.30.220.39",
         "Admin": {
-            "Login": "prognoz",
+            "Login": "root",
+            "Password": "Qwerty12345"
+        },
+        "User": {
+            "Login": "temp3",
             "Password": "123456"
         }
     },
     "VM5": {
         "ID": "5",
-        "Type": "Astra 1.6",
-        "Ip": "10.9.0.252",
+        "Type": "Alt 10",
+        "Ip": "10.9.2.33",
+        "Addition": "Нет UI",
         "Admin": {
-            "Login": "prognoz",
-            "Password": "Qwerty123456"
+            "Login": "user",
+            "Password": "user"
         }
     },
     "VM6": {
@@ -56,15 +62,10 @@
     },
     "VM7": {
         "ID": "7",
-        "Type": "Astra 1.6",
-        "Addition": "Redis + Apache + Proxy + ALD",
-        "Ip": "10.30.220.39",
+        "Type": "Ubuntu",
+        "Ip": "10.0.72.55",
         "Admin": {
-            "Login": "root",
-            "Password": "Qwerty12345"
-        },
-        "User": {
-            "Login": "temp3",
+            "Login": "prognoz",
             "Password": "123456"
         }
     },
@@ -75,19 +76,6 @@
         "Admin": {
             "Login": "User",
             "Password": "Qwerty1"
-        }
-    },
-    "VM9": {
-        "ID": "9",
-        "Type": "Astra 1.7",
-        "Ip": "10.9.0.121",
-        "Admin": {
-            "Login": "root",
-            "Password": "root"
-        },
-        "User": {
-            "Login": "user",
-            "Password": "user"
         }
     }
 }

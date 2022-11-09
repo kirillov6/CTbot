@@ -33,9 +33,3 @@ export const Str = {
     MUSIC_INCORRECTVOLUME:          'Громкость должна быть в пределах [0; 200]',
     MUSIC_VOLUMECHANGED:            'Громкость изменена'
 };
-
-export const File = {
-    COMPSINFO_VER_1:                'CompsInfo/ver_1.png',
-    COMPSINFO_VER_2:                'CompsInfo/ver_2.png',
-    COMPSINFO_VER_3:                'CompsInfo/ver_3.png'
-};
