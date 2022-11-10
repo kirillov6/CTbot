@@ -43,39 +43,8 @@ export abstract class VirtualMachines {
         description: "Состояние виртуальных машин"
     })
     async vmStatus(command: SimpleCommandMessage) {
-        // Получим данные о виртуалках из файла
-        const VMs = JSON.parse(fs.readFileSync(VMFile).toString());
-
-        // Получим данные о состоянии занятости виртуалок из Google-таблицы
-        const VMCurrentUsers = await this.getVMAllUsers();
-
-        // Создадим блок с информацией
-        const vmEmbed = new MessageEmbed()
-            .setColor('#DB97D9')
-            .setTitle('Состояние виртуальных машин')
-            .setTimestamp();
-
-        // Добавим поля в блок
-        for (var key in VMs) {
-            if (VMs.hasOwnProperty(key)) {
-                let vm = VMs[key];
-
-                let fieldText = "";
-                if (vm.Addition)
-                    fieldText = `**(${vm.Addition})**\n`;
-
-                let currentUser = VMCurrentUsers[vm.ID - 1];
-                if (currentUser.userId)
-                    fieldText += `⛔️ Занята [${currentUser.userName}]`;
-                else
-                    fieldText += '✅ Свободна';
-                
-                    vmEmbed.addField(`***[${vm.ID}] ${vm.Type} ${vm.Ip}***`, fieldText);
-            };
-        };
-
         // Отправим на канал
-        command.message.channel.send({ embeds: [vmEmbed] });
+        command.message.channel.send({ embeds: [await this.getVMStatus()] });
     }
 
     @SimpleCommand("vminfo", { 
@@ -175,7 +144,10 @@ export abstract class VirtualMachines {
                 await this.updateVMCurrentUser(id, memberId, memberName);
 
                 // Отправим на канал
-                message.channel.send(`**${memberName}** занял(а) виртуалку #${id}`);
+                await message.channel.send(`**${memberName}** занял(а) виртуалку #${id}`);
+
+                // Отправим статус виртуалок на канал
+                await message.channel.send({ embeds: [await this.getVMStatus()] });
             })
             .catch(err => { console.error(err) });
     }
@@ -282,5 +254,40 @@ export abstract class VirtualMachines {
         }
 
         return null;
+    }
+
+    private async getVMStatus() : Promise<MessageEmbed> {
+        // Получим данные о виртуалках из файла
+        const VMs = JSON.parse(fs.readFileSync(VMFile).toString());
+
+        // Получим данные о состоянии занятости виртуалок из Google-таблицы
+        const VMCurrentUsers = await this.getVMAllUsers();
+
+        // Создадим блок с информацией
+        const vmEmbed = new MessageEmbed()
+            .setColor('#DB97D9')
+            .setTitle('Состояние виртуальных машин')
+            .setTimestamp();
+
+        // Добавим поля в блок
+        for (var key in VMs) {
+            if (VMs.hasOwnProperty(key)) {
+                let vm = VMs[key];
+
+                let fieldText = "";
+                if (vm.Addition)
+                    fieldText = `**(${vm.Addition})**\n`;
+
+                let currentUser = VMCurrentUsers[vm.ID - 1];
+                if (currentUser.userId)
+                    fieldText += `⛔️ Занята [${currentUser.userName}]`;
+                else
+                    fieldText += '✅ Свободна';
+                
+                    vmEmbed.addField(`***[${vm.ID}] ${vm.Type} ${vm.Ip}***`, fieldText);
+            };
+        };
+
+        return vmEmbed;
     }
 }
