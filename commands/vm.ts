@@ -192,7 +192,10 @@ export abstract class VirtualMachines {
                 await this.updateVMCurrentUser(id, "", "");
 
                 // Отправим на канал
-                message.channel.send(`**${memberName}** освободил(а) виртуалку #${id}`);
+                await message.channel.send(`**${memberName}** освободил(а) виртуалку #${id}`);
+
+                // Отправим статус виртуалок на канал
+                await message.channel.send({ embeds: [await this.getVMStatus()] });
             })
             .catch(err => { console.error(err) });
     }
